@@ -4,8 +4,12 @@
   "description": "",
   "main": "app/js/main.mjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "serve": "lite-server",
+    "start": "npm run serve"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "lite-server": "^2.6.1"
+  }
 }
