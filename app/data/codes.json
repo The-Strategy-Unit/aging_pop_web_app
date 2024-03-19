@@ -1,0 +1,6 @@
+[
+  { "code": "E07000235", "name": "Malvern Hills" },
+  { "code": "E08000026", "name": "Coventry" },
+  { "code": "E09000030", "name": "Tower Hamlets" },
+  { "code": "E92000001", "name": "England", "entity": "nation" }
+]
