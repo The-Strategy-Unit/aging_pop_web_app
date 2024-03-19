@@ -4,13 +4,23 @@
   "description": "",
   "main": "app/js/main.mjs",
   "scripts": {
+    "build": "rollup -c",
     "lint": "npx eslint . --ext .mjs --max-warnings=0",
     "serve": "lite-server",
-    "start": "npm run serve"
+    "start": "npm run serve & npm run watch",
+    "watch": "nodemon --ext mjs,html,json,css --exec npm run build"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
     "lite-server": "^2.6.1"
+  },
+  "dependencies": {
+    "d3-fetch": "^3.0.1",
+    "d3-selection": "^3.0.0",
+    "nodemon": "^3.1.0",
+    "rollup": "^4.13.0"
   }
 }
