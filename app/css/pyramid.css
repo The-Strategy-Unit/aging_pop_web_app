@@ -25,6 +25,7 @@
 
 #pyramid > .data-container {
   grid-area: data;
+  position: relative;
 }
 
 #pyramid > .titles-container p:empty::before {
@@ -112,6 +113,13 @@ input[type="range"]::-webkit-slider-runnable-track {
   row-gap: 0.3em;
 }
 
+#pyramid .dependency-ratios > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 280px;
+}
+
 #pyramid .dependency-ratios p {
   margin: 0;
 }
@@ -120,6 +128,7 @@ input[type="range"]::-webkit-slider-runnable-track {
   display: flex;
   column-gap: 4em;
 }
+
 
 @media (min-width: 1000px) {
   #pyramid {
