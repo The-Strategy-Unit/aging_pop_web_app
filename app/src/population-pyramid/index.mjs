@@ -183,6 +183,7 @@ function initPyramid(container) {
   container.html(template);
 
   const controlsContainer = container.select('.controls-container');
+  const sliderContainer = container.select('.slider-container');
   // const graphicContainer = container.select('.graphic-container');
 
   const areaSelect = controlsContainer.select('.area-select')
@@ -205,6 +206,13 @@ function initPyramid(container) {
     .attr('value', d => d[0])
     .text(d => d[1].name);
 
+  const yearSlider = sliderContainer.select('input[type="range"]')
+    .attr('min', 2010)
+    .attr('max', 2050)
+    .attr('step', 1)
+    .attr('value', 2022)
+    .on('input', evt => setState({ 'year': evt.target.value }));
+
   container
     .on('areadatachange', areaDataChange)
     .on('variantdatachange', variantDataChange)
@@ -213,7 +221,7 @@ function initPyramid(container) {
   const initialState = {
     area: areaSelect.node().value,
     variant: variantSelect.node().value,
-    year: '2022'
+    year: yearSlider.node().value
   };
 
   setState(initialState);
