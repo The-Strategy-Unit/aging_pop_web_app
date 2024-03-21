@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,400;0,700;1,400&display=swap");
+@import url('pyramid.css');
 
 * {
   box-sizing: border-box;
@@ -14,8 +15,25 @@ body {
   margin: 0;
 }
 
+main {
+  width: 1200px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
 h1 {
   text-align: center;
   margin: 0;
   padding-bottom: 1em;
+}
+
+a {
+  color: #2C74B5;
+  text-decoration: none;
+  border-top: 2px solid transparent;
+  border-bottom: 2px solid currentColor;
+}
+
+a:hover {
+  border-top-color: currentColor;
 }
