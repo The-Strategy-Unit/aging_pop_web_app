@@ -106,7 +106,7 @@ function variantDataChange(evt) {
   const assumptions = evt.detail.assumptions;
 
   dataContainer.select('dl')
-    .selectAll('span dd')
+    .selectAll('div dd')
     .data(assumptions)
     .each(function(d) {
       const sel = select(this);
