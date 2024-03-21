@@ -45,7 +45,8 @@ function createAppState(container) {
     const detail = {
       area: state.area,
       name: state.name,
-      data: data.area
+      data: data.area,
+      url
     };
 
     trigger('areadatachange', detail);
@@ -88,7 +89,14 @@ function createAppState(container) {
 
 
 function areaDataChange(evt) {
-  console.log(evt);
+  const container = select(evt.target);
+  const dataContainer = container.select('.data-container');
+  const area = evt.detail.area;
+  const name = evt.detail.name.toLowerCase().replace(/\s/g, '-');
+
+  dataContainer.select('.download-link')
+    .attr('href', evt.detail.url)
+    .attr('download', `pyramid-${area}-${name}.json`);
 }
 
 
