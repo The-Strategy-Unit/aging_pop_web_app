@@ -75,7 +75,7 @@ input[type="range"]::-webkit-slider-runnable-track {
   margin-inline-start: 0;
 }
 
-#pyramid dl > span:first-child :where(dt, dd) {
+#pyramid dl > div:first-child :where(dt, dd) {
   display: inline;
 }
 
