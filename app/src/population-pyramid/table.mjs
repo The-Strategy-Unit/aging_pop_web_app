@@ -1,8 +1,8 @@
 function getTableData(iData) {
   const bins = [
-    { name: '<18' , accept: d => d.under < 18, count: 0 },
-    { name: '18—64' , accept: d => d.under > 18 && d.under < 65, count: 0 },
-    { name: '65+' , accept: d => d.under >= 65, count: 0 },
+    { name: '<18' , accept: d => d.under <= 18, count: 0 },
+    { name: '18—64' , accept: d => d.under > 18 && d.under <= 65, count: 0 },
+    { name: '65+' , accept: d => d.under > 65, count: 0 },
   ];
 
   iData.data.forEach(function(d) {
