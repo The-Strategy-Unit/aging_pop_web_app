@@ -17,6 +17,10 @@
 
 #pyramid > .slider-container {
   grid-area: slider;
+  display: flex;
+  align-items: stretch;
+  justify-content: left;
+  padding-right: 2em;
 }
 
 #pyramid > .data-container {
@@ -34,7 +38,20 @@
 
 #pyramid input[type="range"] {
   appearance: slider-vertical;
-  height: 90%;
+  width: 20px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  background-color: transparent;
+}
+
+#pyramid datalist {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+  font-size: 0.8em;
 }
 
 #pyramid table {
@@ -106,7 +123,7 @@
 
 @media (min-width: 1000px) {
   #pyramid {
-    grid-template-columns: 4fr 80px 3fr;
+    grid-template-columns: 4fr auto 3fr;
     column-gap: 1em;
     grid-template-areas: 
       "titles titles titles"
