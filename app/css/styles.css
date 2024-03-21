@@ -37,3 +37,32 @@ a {
 a:hover {
   border-top-color: currentColor;
 }
+
+.help {
+  position: relative;
+  font-size: 0.8em;
+  border: 1px solid black;
+  display: inline-block;
+  padding: 0.1em 0.3em;
+  margin-left: 1em;
+  border-radius: 50%;
+  cursor: help;
+}
+
+[role="tooltip"] {
+  display: none;
+  position: absolute;
+}
+
+:is(.help:hover, .help:focus-visible) [role="tooltip"] {
+  display: unset;
+  width: 200px;
+  transform: translateX(-50%) translateY(-110%);
+  padding: 0.25em;
+  border-radius: 3px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.7);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  pointer-events: none;
+}

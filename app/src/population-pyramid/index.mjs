@@ -172,7 +172,7 @@ function yearDataChange(evt) {
     .text(d => d);
 
   dependencyRatios
-    .selectAll('p span')
+    .selectAll('p span:not(.help)')
     .data([tableData.bins[0].count, tableData.bins[2].count])
     .text(d => Math.round((d/tableData.bins[1].count) * 100));
 }
