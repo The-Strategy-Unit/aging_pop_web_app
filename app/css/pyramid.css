@@ -1,0 +1,120 @@
+#pyramid {
+  display: grid;
+}
+
+#pyramid > .titles-container {
+  grid-area: titles;
+}
+
+#pyramid > .controls-container {
+  grid-area: controls;
+  display: flex;
+}
+
+#pyramid > .graphic-container {
+  grid-area: graphic;
+}
+
+#pyramid > .slider-container {
+  grid-area: slider;
+}
+
+#pyramid > .data-container {
+  grid-area: data;
+}
+
+#pyramid > .titles-container p:empty::before {
+  content:"";
+  display:inline-block;
+}
+
+#pyramid select {
+  width: 175px;
+}
+
+#pyramid input[type="range"] {
+  appearance: slider-vertical;
+  height: 90%;
+}
+
+#pyramid table {
+  border-collapse: collapse;
+  text-align: right;
+  margin-bottom: 1em;
+}
+
+#pyramid dl {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5em;
+}
+
+#pyramid dt {
+  font-weight: bold;
+}
+
+#pyramid dd {
+  margin-inline-start: 0;
+}
+
+#pyramid dl > span:first-child :where(dt, dd) {
+  display: inline;
+}
+
+#pyramid dd span {
+  display: block;
+}
+
+#pyramid thead th {
+  border-bottom: 1px solid black;
+}
+
+#pyramid tfoot :where(th, td) {
+  border-top: 1px solid black;
+}
+
+:where(thead, tfoot) th {
+  text-align: left;
+}
+
+#pyramid th {
+  font-weight: normal;
+}
+
+#pyramid :where(th, td) {
+  width: 80px;
+}
+
+#pyramid :where(th, td):not(:last-child)  {
+  border-right: 0.7em solid transparent;
+}
+
+#pyramid .dependency-ratios {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.3em;
+}
+
+#pyramid .dependency-ratios p {
+  margin: 0;
+}
+
+#pyramid .links {
+  display: flex;
+  column-gap: 4em;
+}
+
+@media (min-width: 1000px) {
+  #pyramid {
+    grid-template-columns: 4fr 80px 3fr;
+    column-gap: 1em;
+    grid-template-areas: 
+      "titles titles titles"
+      "graphic slider controls"
+      "graphic slider data";
+  }
+
+  #pyramid :where(.controls-container, .data-container > *) {
+    margin-bottom: 1em;
+  }
+}
