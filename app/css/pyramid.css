@@ -1,3 +1,5 @@
+@import url('pyramid-graphic.css');
+
 #pyramid {
   display: grid;
 }
@@ -128,7 +130,6 @@ input[type="range"]::-webkit-slider-runnable-track {
   display: flex;
   column-gap: 4em;
 }
-
 
 @media (min-width: 1000px) {
   #pyramid {

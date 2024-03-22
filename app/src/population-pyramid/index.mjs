@@ -2,7 +2,8 @@ import { select } from 'd3-selection';
 import { load } from '../shared/load.mjs'; 
 import { lookup } from '../shared/lookup.mjs';
 import { variants, assumptions } from '../shared/variants.mjs';
-import template from './html/pyramid.html'; 
+import template from './html/pyramid.html';
+import { createGraphic } from './graphics.mjs';
 import { getTableData } from './table.mjs';
 
 const getAssumptions = function(code) {
@@ -213,10 +214,13 @@ function initPyramid(container) {
     .attr('value', 2022)
     .on('input', evt => setState({ 'year': evt.target.value }));
 
+  const updateGraphic = createGraphic(container);
+
   container
     .on('areadatachange', areaDataChange)
     .on('variantdatachange', variantDataChange)
-    .on('yeardatachange', yearDataChange);
+    .on('yeardatachange.controls', yearDataChange)
+    .on('yeardatachange.graphic', updateGraphic);
 
   const initialState = {
     area: areaSelect.node().value,
