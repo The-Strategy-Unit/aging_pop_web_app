@@ -30,8 +30,15 @@
 }
 
 #pyramid .axes {
-  transform: translateY(calc(var(--height) - var(--margin-bottom)));
   font-size: 0.8em;
+}
+
+#pyramid .x-axes {
+  transform: translateY(calc(var(--height) - var(--margin-bottom)));
+}
+
+#pyramid .y-axis {
+  font-weight: bold;
 }
 
 #pyramid .axis-title {
