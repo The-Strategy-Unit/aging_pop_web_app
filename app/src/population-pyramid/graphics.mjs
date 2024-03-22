@@ -1,5 +1,6 @@
 import { select } from 'd3-selection';
 import { scaleLinear } from 'd3-scale';
+import { ticks as d3Ticks } from 'd3-array';
 import { format } from 'd3-format';
 
 const regularFormatter = format(',');
@@ -46,11 +47,14 @@ function createGraphic(container) {
   const gAxes = svg.append('g')
     .attr('class', 'axes');
 
+  const xAxes = gAxes.append('g')
+    .attr('class', 'x-axes');
+
   const createXAxis = function(side, label) {
     let xTranslate = margins.left;
     if (side !== 'left') { xTranslate += (halfWidth + margins.xMidWidth); }
   
-    const gAxis = gAxes.append('g')
+    const gAxis = xAxes.append('g')
       .attr('class', 'axis, x-axis')
       .style('transform', `translateX(${xTranslate}px)`)
       .attr('text-anchor', 'middle');
@@ -104,9 +108,31 @@ function createGraphic(container) {
     return out;
   };
 
+  const yScale = scaleLinear()
+    .domain([0, 100])
+    .range([height - margins.bottom, margins.top]);
+
+  const createYAxis = function() {
+    const tickLabels = d3Ticks(0, 100, 5);
+    const xTranslate = margins.left + halfWidth + (margins.xMidWidth / 2);
+
+    gAxes.append('g')
+      .attr('class', 'axis, y-axis')
+      .style('transform', `translateX(${xTranslate}px)`)
+      .attr('text-anchor', 'middle')
+      .attr('dominant-baseline', 'middle')
+      .selectAll('text')
+      .data(tickLabels)
+      .enter()
+      .append('text')
+      .text(d => d)
+      .attr('x', 0)
+      .attr('y', d => yScale(d));
+  };
+
   const mAxis = createXAxis('left', 'Men');
   const fAxis = createXAxis('right', 'Women');
-
+  createYAxis();
 
   return function updateGraphic(evt) {
     const detail = evt.detail;
