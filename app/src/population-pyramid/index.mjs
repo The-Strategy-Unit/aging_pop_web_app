@@ -43,9 +43,16 @@ function createAppState(container) {
     data.area = await load(url);
     state.name = info.name;
 
+    state.max = data.area
+      .map(function(d) {
+        return d.data.reduce((max, {m, f}) => Math.max(max, m, f), 0);
+      })
+      .reduce((max, d) => Math.max(max, d), 0);
+
     const detail = {
       area: state.area,
       name: state.name,
+      max: state.max,
       data: data.area,
       url
     };
@@ -61,6 +68,7 @@ function createAppState(container) {
     const detail = {
       area: state.area,
       name: state.name,
+      max: state.max,
       variant: state.variant,
       data: data.variant,
       assumptions: getAssumptions(variants[state.variant].short)
@@ -77,6 +85,7 @@ function createAppState(container) {
     const detail = {
       area: state.area,
       name: state.name,
+      max: state.max,
       variant: state.variant,
       year: state.year,
       data: data.year

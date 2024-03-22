@@ -1,10 +1,22 @@
+#pyramid .graphic-container {
+  --width: 600px;
+  --height: 500px;
+  --margin-top: 5px;
+  --margin-right: 20px;
+  --margin-bottom: 50px;
+  --margin-left: 20px;
+  --x-mid-width: 50px;
+  --tick-height: 8px;
+  --tick-gap: 4px;
+}
+
 #pyramid .graphic-container svg {
   width: 100%;
   height: 100%;
 }
 
 #pyramid .age-structure {
-  transform: translate(20px, 20px);
+  transform: translate(var(--margin-left), var(--margin-top));
   font-weight: bold;
 }
 
@@ -13,6 +25,23 @@
 }
 
 #pyramid .age-structure .big-year {
-  transform: translateY(34px);
+  transform: translateY(15px);
   font-size: 2.2em;
+}
+
+#pyramid .axes {
+  transform: translateY(calc(var(--height) - var(--margin-bottom)));
+  font-size: 0.8em;
+}
+
+#pyramid .axis-title {
+  transform: translateY(var(--margin-bottom));
+}
+
+#pyramid .ticks line {
+  stroke: black;
+}
+
+#pyramid .ticks text {
+  transform: translateY(calc(var(--tick-height) + var(--tick-gap)));
 }
