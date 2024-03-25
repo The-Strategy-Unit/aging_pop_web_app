@@ -1,11 +1,11 @@
 #pyramid .graphic-container {
   --width: 600px;
-  --height: 500px;
+  --height: 600px;
   --margin-top: 5px;
   --margin-right: 20px;
   --margin-bottom: 50px;
   --margin-left: 20px;
-  --x-mid-width: 50px;
+  --x-mid-width: 30px;
   --tick-height: 8px;
   --tick-gap: 4px;
 }
@@ -45,10 +45,49 @@
   transform: translateY(var(--margin-bottom));
 }
 
+#pyramid .left {
+  transform: translateX(var(--margin-left));
+}
+
+#pyramid .right {
+  --full-width: calc(var(--width) - (var(--margin-left) + var(--margin-right) + var(--x-mid-width)));
+  --half-width: calc(var(--full-width) / 2);
+  --translateX: calc(var(--margin-left) + var(--half-width) + var(--x-mid-width));
+  transform: translateX(var(--translateX));
+}
+
 #pyramid .ticks line {
   stroke: black;
 }
 
 #pyramid .ticks text {
   transform: translateY(calc(var(--tick-height) + var(--tick-gap)));
+}
+
+#pyramid .data rect {
+  stroke: white;
+  stroke-width: 0.05px;
+}
+
+#pyramid .data rect.males {
+  fill: rgb(44, 116, 181)
+}
+
+#pyramid.v0 .data rect.males {
+  fill: rgb(20, 50, 80)
+}
+
+#pyramid .data rect.females {
+  fill: rgb(253, 72, 78)
+}
+
+#pyramid.v0 .data rect.females {
+  fill: rgb(150, 40, 45);
+}
+
+#pyramid .data rect.min {
+  fill: white;
+  fill-opacity: 0.25;
+  pointer-events: none;
+  stroke-opacity: 0;
 }
