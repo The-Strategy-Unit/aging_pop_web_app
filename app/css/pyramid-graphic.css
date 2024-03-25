@@ -98,3 +98,11 @@
   stroke-width: 0.25px;
   pointer-events: none;
 }
+
+#pyramid .yob-label {
+  font-size: 0.6em;
+  fill: white;
+  pointer-events: none;
+  stroke: black;
+  stroke-width: 0.1px;
+}

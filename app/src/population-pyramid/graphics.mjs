@@ -60,6 +60,9 @@ function createGraphic(container) {
   const gFData = gData.append('g')
     .attr('class', 'right');
 
+  const gYearLabels = svg.append('g')
+    .attr('class', 'left');
+
   const gGrids = svg.append('g')
     .attr('class', 'grids');
 
@@ -242,6 +245,25 @@ function createGraphic(container) {
         sel.select('rect.females').attr('width', scale(d.f) - x0);
         sel.select('rect.min').attr('width', scale(min) - x0);
       });
+
+    const yearLabels = gYearLabels
+      .selectAll('text.yob-label')
+      .data(detail.data.data.filter(d => d.yob % 5 === 4), d => d.yob);
+
+    yearLabels.exit().remove();
+
+    const yearLabelsEnter = yearLabels
+      .enter()  
+      .append('text')
+      .attr('class', 'yob-label')
+      .attr('x', mAxis.scale(0) - 5)
+      .attr('text-anchor', 'end')
+      .attr('dominant-baseline', 'middle')
+      .attr('dy', '0.4em')
+      .text(d => d.yob);
+
+    yearLabels.merge(yearLabelsEnter)
+      .attr('y', d => yScale(d.under));
   };
 }
 
