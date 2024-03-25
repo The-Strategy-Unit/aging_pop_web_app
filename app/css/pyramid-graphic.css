@@ -70,23 +70,23 @@
   stroke-width: 0.05px;
 }
 
-#pyramid .data rect.males {
+#pyramid .data .males rect {
   fill: rgb(44, 116, 181)
 }
 
-#pyramid.v0 .data rect.males {
+#pyramid.v0 .data .males rect {
   fill: rgb(20, 50, 80)
 }
 
-#pyramid .data rect.females {
+#pyramid .data .females rect {
   fill: rgb(253, 72, 78)
 }
 
-#pyramid.v0 .data rect.females {
+#pyramid.v0 .data .females rect {
   fill: rgb(150, 40, 45);
 }
 
-#pyramid .data rect.min {
+#pyramid .data :is(.males, .females) rect.min {
   fill: white;
   fill-opacity: 0.25;
   pointer-events: none;
