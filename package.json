@@ -11,6 +11,9 @@
     "start": "npm run serve & npm run watch",
     "watch": "nodemon --ext mjs,html,json,css --exec npm run build"
   },
+  "lint-staged": {
+    "*.mjs": "npm run lint"
+  },
   "author": "",
   "license": "ISC",
   "devDependencies": {
