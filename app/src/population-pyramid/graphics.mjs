@@ -29,6 +29,7 @@ function createGraphic(container) {
   
   const halfWidth = (width - (margins.left + margins.xMidWidth + margins.right)) / 2;
   const tickHeight = getCSSVariable('tick-height');
+
   const svg = graphicContainer.append('svg')
     .attr('width', width)
     .attr('height', height)
@@ -50,13 +51,18 @@ function createGraphic(container) {
   const xAxes = gAxes.append('g')
     .attr('class', 'x-axes');
 
+  const gData = svg.append('g')
+    .attr('class', 'data');
+
+  const gMData = gData.append('g')
+    .attr('class', 'left');
+
+  const gFData = gData.append('g')
+    .attr('class', 'right');
+
   const createXAxis = function(side, label) {
-    let xTranslate = margins.left;
-    if (side !== 'left') { xTranslate += (halfWidth + margins.xMidWidth); }
-  
     const gAxis = xAxes.append('g')
-      .attr('class', 'axis, x-axis')
-      .style('transform', `translateX(${xTranslate}px)`)
+      .attr('class', `axis, x-axis, ${side}`)
       .attr('text-anchor', 'middle');
   
     gAxis.append('g')
@@ -113,7 +119,7 @@ function createGraphic(container) {
     .range([height - margins.bottom, margins.top]);
 
   const createYAxis = function() {
-    const tickLabels = d3Ticks(0, 100, 5);
+    const tickLabels = d3Ticks(0, 100, 20);
     const xTranslate = margins.left + halfWidth + (margins.xMidWidth / 2);
 
     gAxes.append('g')
@@ -139,6 +145,84 @@ function createGraphic(container) {
     bigYear.text(detail.year);
     mAxis.update(detail.max);
     fAxis.update(detail.max);
+
+    const barHeight = Math.abs(yScale(1) - yScale(0));
+
+    const mBars = gMData
+      .selectAll('g.bars')
+      .data(detail.data.data, d => d.yob);
+
+    mBars.exit().remove();
+
+    const mBarsEnter = mBars
+      .enter()
+      .append('g')
+      .attr('class', 'bars')
+      .each(function() {
+        const sel = select(this);
+
+        sel.append('rect')
+          .attr('class', 'males')
+          .attr('height', barHeight);
+
+        sel.append('rect')
+          .attr('class', 'min')
+          .attr('height', barHeight);
+      });
+      
+    mBars.merge(mBarsEnter)
+      .each(function(d) {
+        const sel = select(this);
+        const scale = mAxis.scale;
+        const min = Math.min(d.m, d.f);
+        const x0 = scale(0);
+      
+        sel.selectAll('rect').attr('y', yScale(d.under));
+      
+        sel.select('rect.males')
+          .attr('x', scale(d.m))
+          .attr('width', x0 - scale(d.m));
+
+        sel.select('rect.min')
+          .attr('x', scale(min))
+          .attr('width', x0 - scale(min));
+      });
+
+    const fBars = gFData
+      .selectAll('g.bars')
+      .data(detail.data.data, d => d.yob);
+
+    fBars.exit().remove();
+
+    const fBarsEnter = fBars
+      .enter()
+      .append('g')
+      .attr('class', 'bars')
+      .each(function() {
+        const sel = select(this);
+        const scale = fAxis.scale;
+
+        sel.append('rect')
+          .attr('class', 'females')
+          .attr('x', scale(0))
+          .attr('height', barHeight);
+
+        sel.append('rect')
+          .attr('class', 'min')
+          .attr('x', scale(0))
+          .attr('height', barHeight);
+      });
+      
+    fBars.merge(fBarsEnter)
+      .each(function(d) {
+        const sel = select(this);
+        const scale = fAxis.scale;
+        const min = Math.min(d.m, d.f);
+        const x0 = scale(0);
+        sel.selectAll('rect').attr('y', yScale(d.under));
+        sel.select('rect.females').attr('width', scale(d.f) - x0);
+        sel.select('rect.min').attr('width', scale(min) - x0);
+      });
   };
 }
 

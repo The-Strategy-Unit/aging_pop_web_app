@@ -131,6 +131,7 @@ input[type="range"]::-webkit-slider-runnable-track {
   column-gap: 4em;
 }
 
+
 @media (min-width: 1000px) {
   #pyramid {
     grid-template-columns: 4fr auto 3fr;

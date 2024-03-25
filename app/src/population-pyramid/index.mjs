@@ -146,6 +146,7 @@ function yearDataChange(evt) {
 
   const { name, data } = evt.detail;
   const variant = data.variant;
+  container.classed('v0', variant === 0);
 
   let hText, pText;
   if (variant === 0) {
