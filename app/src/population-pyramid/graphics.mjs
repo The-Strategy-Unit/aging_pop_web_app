@@ -60,10 +60,16 @@ function createGraphic(container) {
   const gFData = gData.append('g')
     .attr('class', 'right');
 
+  const gGrids = svg.append('g')
+    .attr('class', 'grids');
+
   const createXAxis = function(side, label) {
     const gAxis = xAxes.append('g')
       .attr('class', `axis, x-axis, ${side}`)
       .attr('text-anchor', 'middle');
+
+    const gGrid = gGrids.append('g')
+      .attr('class', `grid ${side}`);
   
     gAxis.append('g')
       .attr('class', 'ticks');
@@ -106,6 +112,19 @@ function createGraphic(container) {
           sel.append('line').attr('x1',0).attr('x2',0).attr('y1', 0).attr('y2', tickHeight);
           sel.append('text').attr('dominant-baseline', 'hanging').text(formatter(d));
         });
+
+      const yRange = yScale.range();
+
+      gGrid.text('')
+        .selectAll('line.grid-line')
+        .data(ticks)
+        .enter()
+        .append('line')
+        .attr('class', 'grid-line')
+        .attr('x1', d => scale(d))
+        .attr('y1', yRange[0])
+        .attr('x2', d => scale(d))
+        .attr('y2', yRange[1]);
     };
 
     const out = { update };
