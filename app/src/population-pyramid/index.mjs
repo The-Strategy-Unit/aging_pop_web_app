@@ -45,7 +45,11 @@ function createAppState(container) {
 
     state.max = data.area
       .map(function(d) {
-        return d.data.reduce((max, {m, f}) => Math.max(max, m, f), 0);
+        const { year, data } = d;
+        return data.reduce(function(max, d) {
+          d.yob = year - (d.under - 1);
+          return Math.max(max, d.m, d.f);
+        }, 0);
       })
       .reduce((max, d) => Math.max(max, d), 0);
 
