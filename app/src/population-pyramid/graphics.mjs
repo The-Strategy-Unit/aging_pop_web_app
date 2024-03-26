@@ -54,11 +54,11 @@ function createGraphic(container) {
   const gData = svg.append('g')
     .attr('class', 'data');
 
-  const gYearLabels = svg.append('g')
-    .attr('class', 'left');
-
   const gGrids = svg.append('g')
     .attr('class', 'grids');
+
+  const gYobLabels = svg.append('g')
+    .attr('class', 'yob-labels');
 
   const createXAxis = function(side, label) {
     const gAxis = xAxes.append('g')
@@ -168,14 +168,19 @@ function createGraphic(container) {
       .selectAll('g.bar-group')
       .data(detail.data.data, d => d.yob);
 
-    barGroups.exit().remove();
+    barGroups.exit()
+      .each(function(d) {
+        gYobLabels.select(`.${d.yobClass}`).remove();
+      })
+      .remove();
 
     const barGroupsEnter = barGroups.enter()
       .append('g')
       .attr('class', 'bar-group')
-      .each(function() {
-        select(this)
-          .selectAll('g.gender')
+      .each(function(d) {
+        const sel = select(this);
+
+        sel.selectAll('g.gender')
           .data(['males', 'females'])
           .enter()
           .append('g')
@@ -192,6 +197,51 @@ function createGraphic(container) {
               .attr('class', 'min')
               .attr('height', barHeight);
           });
+
+        const yobLabels = gYobLabels
+          .append('g')
+          .datum(d)
+          .attr('class', d.yobClass);
+
+        yobLabels.append('g')
+          .attr('class', 'left')
+          .append('text')
+          .attr('class', 'large-yob-label')
+          .attr('x', mAxis.scale(0) - 5)
+          .attr('dy', '-0.15em')
+          .attr('text-anchor', 'end')
+          .text(`Year of birth ${d.yob}`);
+
+        yobLabels.append('g')
+          .attr('class', 'right')
+          .append('text')
+          .attr('class', 'large-yob-label')
+          .attr('x', fAxis.scale(0) + 5)
+          .attr('dy', '-0.15em')
+          .attr('text-anchor', 'start')
+          .text(`${format(',')(d.m + d.f)} people`);
+
+        if (d.yob % 5 === 4) {
+          yobLabels.select('g.left')
+            .append('text')
+            .datum(d.yob)
+            .attr('class', 'small-yob-label')
+            .attr('x', mAxis.scale(0) - 5)
+            .attr('text-anchor', 'end')
+            .attr('dominant-baseline', 'middle')
+            .attr('dy', '0.4em')
+            .text(d => d);
+        }
+
+        sel
+          .on('mouseover', function() {
+            sel.classed('chosen', true);
+            select(`.${d.yobClass}`).classed('chosen', true);
+          })
+          .on('mouseout', function() {
+            sel.classed('chosen', false);
+            select(`.${d.yobClass}`).classed('chosen', false);
+          });
       });
          
     barGroups.merge(barGroupsEnter)
@@ -200,8 +250,12 @@ function createGraphic(container) {
         const values = { males: d.m, females: d.f, min: Math.min(d.m, d.f) };
         const mScale = mAxis.scale;
         const fScale = fAxis.scale;
-        
-        sel.selectAll('rect').attr('y', yScale(d.under));
+        const yScaled = yScale(d.under);
+
+        sel.selectAll('rect').attr('y', yScaled);
+
+        gYobLabels.selectAll(`.labels-${d.yob} text`)
+          .attr('y', yScaled);
       
         sel.selectAll('g.males rect')
           .attr('x', d => mScale(values[d]))
@@ -212,24 +266,10 @@ function createGraphic(container) {
           .attr('width', d =>  fScale(values[d]) - fScale(0));
       });
 
-    const yearLabels = gYearLabels
-      .selectAll('text.yob-label')
-      .data(detail.data.data.filter(d => d.yob % 5 === 4), d => d.yob);
-
-    yearLabels.exit().remove();
-
-    const yearLabelsEnter = yearLabels
-      .enter()  
-      .append('text')
-      .attr('class', 'yob-label')
-      .attr('x', mAxis.scale(0) - 5)
-      .attr('text-anchor', 'end')
-      .attr('dominant-baseline', 'middle')
-      .attr('dy', '0.4em')
-      .text(d => d.yob);
-
-    yearLabels.merge(yearLabelsEnter)
-      .attr('y', d => yScale(d.under));
+    gYobLabels.selectAll('[class^="labels-"]')
+      .sort(function(a, b) {
+        return b.yob - a.yob;
+      });
   };
 }
 

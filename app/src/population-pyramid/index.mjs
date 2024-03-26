@@ -48,6 +48,7 @@ function createAppState(container) {
         const { year, data } = d;
         return data.reduce(function(max, d) {
           d.yob = year - (d.under - 1);
+          d.yobClass = `labels-${d.yob}`;
           return Math.max(max, d.m, d.f);
         }, 0);
       })
