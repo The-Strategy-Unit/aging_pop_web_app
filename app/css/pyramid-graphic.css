@@ -1,7 +1,7 @@
 #pyramid .graphic-container {
   --width: 600px;
   --height: 600px;
-  --margin-top: 5px;
+  --margin-top: 25px;
   --margin-right: 20px;
   --margin-bottom: 50px;
   --margin-left: 20px;
@@ -70,19 +70,19 @@
   stroke-width: 0.05px;
 }
 
-#pyramid .data .males rect {
-  fill: rgb(44, 116, 181)
+#pyramid .data .males :not(min) {
+  fill: rgb(44, 116, 181);
 }
 
-#pyramid.v0 .data .males rect {
-  fill: rgb(20, 50, 80)
+#pyramid.v0 .data .males :not(min) {
+  fill: rgb(20, 50, 80);
 }
 
-#pyramid .data .females rect {
-  fill: rgb(253, 72, 78)
+#pyramid .data .females :not(min) {
+  fill: rgb(253, 72, 78);
 }
 
-#pyramid.v0 .data .females rect {
+#pyramid.v0 .data .females :not(min) {
   fill: rgb(150, 40, 45);
 }
 
@@ -93,16 +93,50 @@
   stroke-opacity: 0;
 }
 
+#pyramid .data .chosen :is(.males, .females) rect:not(min) {
+  fill: black;
+}
+
 #pyramid .grid-line {
   stroke: white;
   stroke-width: 0.25px;
   pointer-events: none;
 }
 
-#pyramid .yob-label {
+#pyramid .yob-labels {
+  pointer-events: none;
+}
+
+#pyramid .large-yob-label {
+  font-weight: bold;
+  fill: black;
+  stroke: white;
+  stroke-width: 0.25px;
+  display: none;
+}
+
+#pyramid.v0 .large-yob-label {
+  fill: white;
+  stroke: black;
+}
+
+#pyramid .chosen .large-yob-label {
+  display: unset;
+}
+
+#pyramid .small-yob-label {
   font-size: 0.6em;
   fill: white;
-  pointer-events: none;
   stroke: black;
   stroke-width: 0.1px;
+}
+
+#pyramid .yob-labels > :first-child .small-yob-label,
+#pyramid .chosen .small-yob-label,
+#pyramid .chosen + * .small-yob-label,
+#pyramid .chosen + * + * .small-yob-label,
+#pyramid .chosen + * + * + * .small-yob-label,
+#pyramid .chosen + * + * + * + * .small-yob-label,
+#pyramid :has(+ .chosen) .small-yob-label {
+  opacity: 0;
 }
