@@ -256,8 +256,7 @@ function createGraphic(container) {
           .attr('class', 'large-yob-label')
           .attr('x', fAxis.scale(0) + 5)
           .attr('dy', '-0.15em')
-          .attr('text-anchor', 'start')
-          .text(`${format(',')(d.m + d.f)} people`);
+          .attr('text-anchor', 'start');
 
         if (d.yob % 5 === 4) {
           yobLabels.select('g.left')
@@ -308,12 +307,14 @@ function createGraphic(container) {
         const values = { males: d.m, females: d.f, min: Math.min(d.m, d.f) };
         const mScale = mAxis.scale;
         const fScale = fAxis.scale;
-        const yScaled = yScale(d.under);
+        const translateY = `translateY(${yScale(d.under)}px)`;
 
-        sel.style('transform', `translateY(${yScaled}px)`);
+        sel.style('transform', translateY);
 
-        gYobLabels.selectAll(`.labels-${d.yob} text`)
-          .attr('y', yScaled);
+        gYobLabels.select(`.labels-${d.yob}`)
+          .style('transform', translateY)
+          .select('.right text')
+          .text(`${format(',')(Math.round(d.m + d.f))} people`);
       
         sel.selectAll('g.males rect')
           .transition()
