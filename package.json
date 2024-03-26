@@ -27,6 +27,7 @@
     "d3-format": "^3.1.0",
     "d3-scale": "^4.0.2",
     "d3-selection": "^3.0.0",
+    "d3-transition": "^3.0.1",
     "nodemon": "^3.1.0",
     "rollup": "^4.13.0",
     "rollup-plugin-string": "^3.0.0"

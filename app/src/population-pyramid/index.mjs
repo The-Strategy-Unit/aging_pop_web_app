@@ -2,9 +2,12 @@ import { select } from 'd3-selection';
 import { load } from '../shared/load.mjs'; 
 import { lookup } from '../shared/lookup.mjs';
 import { variants, assumptions } from '../shared/variants.mjs';
+import { constants } from '../shared/constants.mjs';
 import template from './html/pyramid.html';
 import { createGraphic } from './graphics.mjs';
 import { getTableData } from './table.mjs';
+import { startAnimation } from './animate.mjs';
+
 
 const getAssumptions = function(code) {
   const parts = code.match(/(B|L|M)\d/g);
@@ -13,7 +16,7 @@ const getAssumptions = function(code) {
 
 
 function createAppState(container) {
-  const state = { area: '', name: '', variant: '', year: '' };
+  const state = { area: '', name: '', variant: '', year: '', animating: false };
   const data = { area: [], variant: [], year: [] };
 
   const isSet = (d, k) => d[k] !== undefined;
@@ -27,14 +30,21 @@ function createAppState(container) {
     const newArea = isSet(values, 'area') && values.area !== state.area;
     const newVariant = isSet(values, 'variant') && values.variant !== state.variant;
     const newYear = isSet(values, 'year') && values.year !== state.year;
+    const newAnimating = isSet(values, 'animating') && values.animating !== state.animating;
   
     if (newArea) { state.area = values.area; }
     if (newVariant) { state.variant = values.variant; }
     if (newYear) { state.year = values.year; }
+    if (newAnimating) { state.animating = values.animating; }
     
     if (newArea) { setAreaData(); }
     else if (newVariant) { setVariantData(); }
     else if (newYear) { setYearData(); }
+    if (newAnimating) { setAnimating(); }
+  };
+
+  const getState = function(prop) {
+    return state[prop];
   };
 
   const setAreaData = async function() {
@@ -93,13 +103,19 @@ function createAppState(container) {
       max: state.max,
       variant: state.variant,
       year: state.year,
-      data: data.year
+      data: data.year,
+      animating: state.animating
     };
 
     trigger('yeardatachange', detail);
   };
 
-  return setState;
+  const setAnimating = function() {
+    const detail = { animating: state.animating };
+    trigger('animatingchange', detail);
+  };
+
+  return { setState, getState };
 }
 
 
@@ -195,12 +211,12 @@ function yearDataChange(evt) {
 
 
 function initPyramid(container) {
-  const setState = createAppState(container);
+  const { setState, getState } = createAppState(container);
   container.html(template);
 
   const controlsContainer = container.select('.controls-container');
   const sliderContainer = container.select('.slider-container');
-  // const graphicContainer = container.select('.graphic-container');
+  const graphicContainer = container.select('.graphic-container');
 
   const areaSelect = controlsContainer.select('.area-select')
     .on('change', evt => setState({ 'area': evt.target.value }));
@@ -229,13 +245,48 @@ function initPyramid(container) {
     .attr('value', 2022)
     .on('input', evt => setState({ 'year': evt.target.value }));
 
+  graphicContainer.select('.play-button')
+    .on('click', () => setState( { 'animating': true }));
+
+  graphicContainer.select('.pause-button')
+    .on('click', () => setState( { 'animating': false }));
+
   const updateGraphic = createGraphic(container);
+
+  const createSliderAnimation = function() {
+    const first = parseInt(yearSlider.attr('min'));
+    const last = parseInt(yearSlider.attr('max'));
+    const n = (last - first) + 1;
+    const startValue = parseInt(yearSlider.node().value);
+    const startPosition = startValue - first;
+
+    return function(dt) {
+      if (!getState('animating')) { return true; }
+      const count = Math.floor(dt / constants.tickTime);
+      const position = (startPosition + count) % n;
+      const year = first + position;
+      yearSlider.node().value = year;
+      setState({ year });
+    };
+  };
 
   container
     .on('areadatachange', areaDataChange)
     .on('variantdatachange', variantDataChange)
     .on('yeardatachange.controls', yearDataChange)
-    .on('yeardatachange.graphic', updateGraphic);
+    .on('yeardatachange.graphic', updateGraphic)
+    .on('animatingchange', function(evt) {
+      const animating = evt.detail.animating;
+      container.classed('animating', animating);
+      setState({ animating });
+      if (animating) {
+        startAnimation(createSliderAnimation());
+        yearSlider.attr('disabled', 'disabled');
+      }
+      else {
+        yearSlider.attr('disabled', null);
+      }
+    });
 
   const initialState = {
     area: areaSelect.node().value,
