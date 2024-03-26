@@ -10,7 +10,7 @@
   --tick-gap: 4px;
 }
 
-#pyramid .graphic-container svg {
+#pyramid .graphic-container .main-graphic svg {
   width: 100%;
   height: 100%;
 }

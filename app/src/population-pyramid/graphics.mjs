@@ -2,6 +2,8 @@ import { select } from 'd3-selection';
 import { scaleLinear } from 'd3-scale';
 import { ticks as d3Ticks } from 'd3-array';
 import { format } from 'd3-format';
+import 'd3-transition';
+import { constants } from '../shared/constants.mjs';
 
 const regularFormatter = format(',');
 const bigFormatter = d => d ? `${regularFormatter(d/1000)}k` : '0';
@@ -30,7 +32,7 @@ function createGraphic(container) {
   const halfWidth = (width - (margins.left + margins.xMidWidth + margins.right)) / 2;
   const tickHeight = getCSSVariable('tick-height');
 
-  const svg = graphicContainer.append('svg')
+  const svg = graphicContainer.select('.main-graphic svg')
     .attr('width', width)
     .attr('height', height)
     .attr('viewBox', `0 0 ${width} ${height}`);
@@ -157,24 +159,51 @@ function createGraphic(container) {
   createYAxis();
 
   let chosenYob = null;
+  let previousYear = null;
 
   return function updateGraphic(evt) {
     const detail = evt.detail;
+    const duration = detail.animating ? constants.tickTime : 0;
     bigYear.text(detail.year);
     mAxis.update(detail.max);
     fAxis.update(detail.max);
+
+    const reset = duration && previousYear > detail.year; 
+
+    if (reset) {
+      gData.text('');
+      gYobLabels.text('');
+    }
 
     const barHeight = Math.abs(yScale(1) - yScale(0));
 
     const barGroups = gData
       .selectAll('g.bar-group')
       .data(detail.data.data, d => d.yob);
-
+    
     barGroups.exit()
       .each(function(d) {
         gYobLabels.select(`.${d.yobClass}`).remove();
       })
+      .transition()
+      .duration(duration)
+      .style('transform', d => `translateY(${yScale(d.under + 1)}px)`)
+      .each(function() {
+        const sel = select(this);
+
+        sel.selectAll('g.males rect')
+          .transition()
+          .duration(duration)
+          .attr('x', mAxis.scale(0))
+          .attr('width', 0);
+
+        sel.selectAll('g.females rect')
+          .transition()
+          .duration(duration)
+          .attr('width', 0);
+      })
       .remove();
+      
 
     const barGroupsEnter = barGroups.enter()
       .append('g')
@@ -190,15 +219,20 @@ function createGraphic(container) {
           .attr('class', d => `gender ${d} ${d === 'males' ? 'left' : 'right'}`)
           .each(function(d) {
             const sel = select(this);
+            const scale = (d === 'males' ? mAxis : fAxis).scale;
 
             sel.append('rect')
               .datum(d)
-              .attr('height', barHeight);
+              .attr('height', barHeight)
+              .attr('width', 0)
+              .attr('x', scale(0));
 
             sel.append('rect')
               .datum('min')
               .attr('class', 'min')
-              .attr('height', barHeight);
+              .attr('height', barHeight)
+              .attr('width', 0)
+              .attr('x', scale(0));
           });
 
         const yobLabels = gYobLabels
@@ -276,16 +310,20 @@ function createGraphic(container) {
         const fScale = fAxis.scale;
         const yScaled = yScale(d.under);
 
-        sel.selectAll('rect').attr('y', yScaled);
+        sel.style('transform', `translateY(${yScaled}px)`);
 
         gYobLabels.selectAll(`.labels-${d.yob} text`)
           .attr('y', yScaled);
       
         sel.selectAll('g.males rect')
+          .transition()
+          .duration(duration)
           .attr('x', d => mScale(values[d]))
           .attr('width', d =>  mScale(0) - mScale(values[d]));
 
         sel.selectAll('g.females rect')
+          .transition()
+          .duration(duration)
           .attr('x', fScale(0))
           .attr('width', d =>  fScale(values[d]) - fScale(0));
       });
@@ -294,6 +332,8 @@ function createGraphic(container) {
       .sort(function(a, b) {
         return b.yob - a.yob;
       });
+
+    previousYear = detail.year;
   };
 }
 
