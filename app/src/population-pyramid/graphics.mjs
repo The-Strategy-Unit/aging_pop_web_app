@@ -156,6 +156,8 @@ function createGraphic(container) {
   const fAxis = createXAxis('right', 'Women');
   createYAxis();
 
+  let chosenYob = null;
+
   return function updateGraphic(evt) {
     const detail = evt.detail;
     bigYear.text(detail.year);
@@ -178,7 +180,8 @@ function createGraphic(container) {
       .append('g')
       .attr('class', 'bar-group')
       .each(function(d) {
-        const sel = select(this);
+        const sel = select(this)
+          .classed('chosen', d => d.yob === chosenYob);
 
         sel.selectAll('g.gender')
           .data(['males', 'females'])
@@ -201,7 +204,8 @@ function createGraphic(container) {
         const yobLabels = gYobLabels
           .append('g')
           .datum(d)
-          .attr('class', d.yobClass);
+          .attr('class', d.yobClass)
+          .classed('chosen', d => d.yob === chosenYob);
 
         yobLabels.append('g')
           .attr('class', 'left')
@@ -233,14 +237,34 @@ function createGraphic(container) {
             .text(d => d);
         }
 
+        const setAsChosen = function() {
+          svg.selectAll('.chosen').classed('chosen', false);
+          sel.classed('chosen', true);
+          yobLabels.classed('chosen', true);
+        };
+
+        const unsetAsChosen = function() {
+          sel.classed('chosen', false);
+          yobLabels.classed('chosen', false);
+        };
+
         sel
           .on('mouseover', function() {
-            sel.classed('chosen', true);
-            select(`.${d.yobClass}`).classed('chosen', true);
+            if (chosenYob) { return; }
+            setAsChosen();
           })
           .on('mouseout', function() {
-            sel.classed('chosen', false);
-            select(`.${d.yobClass}`).classed('chosen', false);
+            if (chosenYob) { return; }
+            unsetAsChosen();
+          })
+          .on('click', function() {
+            if (chosenYob !== d.yob) {
+              chosenYob = d.yob;
+              setAsChosen();
+            }
+            else {
+              chosenYob = null;
+            }
           });
       });
          

@@ -68,6 +68,7 @@
 #pyramid .data rect {
   stroke: white;
   stroke-width: 0.05px;
+  cursor: pointer;
 }
 
 #pyramid .data .males :not(min) {
