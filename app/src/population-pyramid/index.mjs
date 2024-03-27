@@ -1,132 +1,23 @@
 import { select } from 'd3-selection';
-import { load } from '../shared/load.mjs'; 
 import { lookup } from '../shared/lookup.mjs';
-import { variants, assumptions } from '../shared/variants.mjs';
+import { variants } from '../shared/variants.mjs';
 import { constants } from '../shared/constants.mjs';
+import { setState, getState, getData, createAppState } from './state.mjs';
 import template from './html/pyramid.html';
 import { createGraphic } from './graphics.mjs';
 import { getTableData } from './table.mjs';
 import { startAnimation } from './animate.mjs';
-
-
-const getAssumptions = function(code) {
-  const parts = code.match(/(B|L|M)\d/g);
-  return [code].concat(parts.map(d => assumptions[d]));
-};
-
-
-function createAppState(container) {
-  const state = { area: '', name: '', variant: '', year: '', animating: false };
-  const data = { area: [], variant: [], year: [] };
-
-  const isSet = (d, k) => d[k] !== undefined;
-
-  const trigger = function(evtType, detail) {
-    const customEvent = new CustomEvent(evtType, { detail });
-    container.node().dispatchEvent(customEvent);
-  };
-
-  const setState = function(values) {
-    const newArea = isSet(values, 'area') && values.area !== state.area;
-    const newVariant = isSet(values, 'variant') && values.variant !== state.variant;
-    const newYear = isSet(values, 'year') && values.year !== state.year;
-    const newAnimating = isSet(values, 'animating') && values.animating !== state.animating;
-  
-    if (newArea) { state.area = values.area; }
-    if (newVariant) { state.variant = values.variant; }
-    if (newYear) { state.year = values.year; }
-    if (newAnimating) { state.animating = values.animating; }
-    
-    if (newArea) { setAreaData(); }
-    else if (newVariant) { setVariantData(); }
-    else if (newYear) { setYearData(); }
-    if (newAnimating) { setAnimating(); }
-  };
-
-  const getState = function(prop) {
-    return state[prop];
-  };
-
-  const setAreaData = async function() {
-    const info = lookup.get(state.area);
-    const url = info.pyramidUrl;
-    data.area = await load(url);
-    state.name = info.name;
-
-    state.max = data.area
-      .map(function(d) {
-        const { year, data } = d;
-        return data.reduce(function(max, d) {
-          d.yob = year - (d.under - 1);
-          d.yobClass = `labels-${d.yob}`;
-          return Math.max(max, d.m, d.f);
-        }, 0);
-      })
-      .reduce((max, d) => Math.max(max, d), 0);
-
-    const detail = {
-      area: state.area,
-      name: state.name,
-      max: state.max,
-      data: data.area,
-      url
-    };
-
-    trigger('areadatachange', detail);
-    setVariantData();
-  };
-  
-  const setVariantData = function() {
-    const vOptions = [0, parseInt(state.variant.slice(1))];
-    data.variant = data.area.filter(d => vOptions.includes(d.variant));
-    
-    const detail = {
-      area: state.area,
-      name: state.name,
-      max: state.max,
-      variant: state.variant,
-      data: data.variant,
-      assumptions: getAssumptions(variants[state.variant].short)
-    };
-
-    trigger('variantdatachange', detail);
-    setYearData();
-  };
-  
-  const setYearData = function() {
-    const year = parseInt(state.year);
-    data.year = data.variant.find(d => d.year === year);
-
-    const detail = {
-      area: state.area,
-      name: state.name,
-      max: state.max,
-      variant: state.variant,
-      year: state.year,
-      data: data.year,
-      animating: state.animating
-    };
-
-    trigger('yeardatachange', detail);
-  };
-
-  const setAnimating = function() {
-    const detail = { animating: state.animating };
-    trigger('animatingchange', detail);
-  };
-
-  return { setState, getState };
-}
+import { createMiniGraphic } from './mini-graphic.mjs';
 
 
 function areaDataChange(evt) {
   const container = select(evt.target);
   const dataContainer = container.select('.data-container');
-  const area = evt.detail.area;
-  const name = evt.detail.name.toLowerCase().replace(/\s/g, '-');
+  const area = getState('area');
+  const name = getData('name').toLowerCase().replace(/\s/g, '-');
 
   dataContainer.select('.download-link')
-    .attr('href', evt.detail.url)
+    .attr('href', getData('url'))
     .attr('download', `pyramid-${area}-${name}.json`);
 }
 
@@ -134,7 +25,7 @@ function areaDataChange(evt) {
 function variantDataChange(evt) {
   const container = select(evt.target);
   const dataContainer = container.select('.data-container');
-  const assumptions = evt.detail.assumptions;
+  const assumptions = getData('assumptions');
 
   dataContainer.select('dl')
     .selectAll('div dd')
@@ -161,24 +52,24 @@ function yearDataChange(evt) {
   const table = dataContainer.select('table');
   const dependencyRatios = dataContainer.select('.dependency-ratios');
 
-  const { name, data } = evt.detail;
-  const variant = data.variant;
-  container.classed('v0', variant === 0);
+  const name = getData('name');
+  const variant = `v${getData('year').variant}`;
+  container.classed('v0', variant === 'v0');
 
   let hText, pText;
-  if (variant === 0) {
+  if (variant === 'v0') {
     hText = `Population in ${name}`;
     pText = '';
   }
   else {
     hText = `2018 Based Population Projection for ${name}`;
-    const vName = variants[`v${variant}`].name;
-    pText = `Variant ${variant}: ${vName}`;
+    const vName = variants[variant].name;
+    pText = `Variant ${variant.slice(1)}: ${vName}`;
   }
   titlesContainer.select('h2').text(hText);
   titlesContainer.select('p').text(pText);
-
-  const tableData = getTableData(data);
+  
+  const tableData = getTableData();
 
   const tbody = table.select('tbody').text('');
 
@@ -211,7 +102,7 @@ function yearDataChange(evt) {
 
 
 function initPyramid(container) {
-  const { setState, getState } = createAppState(container);
+  createAppState(container);
   container.html(template);
 
   const controlsContainer = container.select('.controls-container');
@@ -245,6 +136,12 @@ function initPyramid(container) {
     .attr('value', 2022)
     .on('input', evt => setState({ 'year': evt.target.value }));
 
+  controlsContainer.select('input[type=checkbox]')
+    .on('change', function(evt) {
+      const value = evt.target.checked ? yearSlider.node().value : null;
+      setState({ 'refYear': value });
+    });
+
   graphicContainer.select('.play-button')
     .on('click', () => setState( { 'animating': true }));
 
@@ -252,6 +149,7 @@ function initPyramid(container) {
     .on('click', () => setState( { 'animating': false }));
 
   const updateGraphic = createGraphic(container);
+  const updateMiniGraphic = createMiniGraphic(container);
 
   const createSliderAnimation = function() {
     const first = parseInt(yearSlider.attr('min'));
@@ -275,10 +173,11 @@ function initPyramid(container) {
     .on('variantdatachange', variantDataChange)
     .on('yeardatachange.controls', yearDataChange)
     .on('yeardatachange.graphic', updateGraphic)
-    .on('animatingchange', function(evt) {
-      const animating = evt.detail.animating;
+    .on('refyeardatachange.graphic', updateGraphic)
+    .on('refyeardatachange.mini-graphic', updateMiniGraphic)
+    .on('animatingchange', function() {
+      const animating = getState('animating');
       container.classed('animating', animating);
-      setState({ animating });
       if (animating) {
         startAnimation(createSliderAnimation());
         yearSlider.attr('disabled', 'disabled');
@@ -291,7 +190,9 @@ function initPyramid(container) {
   const initialState = {
     area: areaSelect.node().value,
     variant: variantSelect.node().value,
-    year: yearSlider.node().value
+    year: yearSlider.node().value,
+    refYear: null,
+    animating: false
   };
 
   setState(initialState);

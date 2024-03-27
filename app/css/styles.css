@@ -66,3 +66,37 @@ a:hover {
   backdrop-filter: blur(2px);
   pointer-events: none;
 }
+
+input[type="checkbox"] {
+  position: relative;
+  appearance: none;
+  font-size: inherit;
+  width: 2em;
+  height: 1em;
+  box-sizing: content-box;
+  border: 1px solid;
+  border-radius: 1em;
+  vertical-align: text-bottom;
+  margin: auto;
+  color: inherit;
+  cursor: pointer;
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(0, -50%);
+  box-sizing: border-box;
+  width: 0.7em;
+  height: 0.7em;
+  margin: 0 0.15em;
+  border: 1px solid;
+  border-radius: 50%;
+  background: currentcolor;
+}
+
+input[type="checkbox"]:checked::before {
+  left: 1em;
+}

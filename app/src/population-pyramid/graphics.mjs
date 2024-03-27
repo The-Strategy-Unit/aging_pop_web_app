@@ -3,15 +3,12 @@ import { scaleLinear } from 'd3-scale';
 import { ticks as d3Ticks } from 'd3-array';
 import { format } from 'd3-format';
 import 'd3-transition';
+import { getState, getData } from './state.mjs';
 import { constants } from '../shared/constants.mjs';
+import { _getCSSVariable } from '../shared/css.mjs';
 
 const regularFormatter = format(',');
 const bigFormatter = d => d ? `${regularFormatter(d/1000)}k` : '0';
-
-function _getCSSVariable(name, func = parseFloat) {
-  const str = getComputedStyle(this).getPropertyValue(`--${name}`);
-  return func ? func(str) : str;
-}
 
 
 function createGraphic(container) {
@@ -58,6 +55,9 @@ function createGraphic(container) {
 
   const gGrids = svg.append('g')
     .attr('class', 'grids');
+
+  const gRefYear = svg.append('g')
+    .attr('class', 'ref-year');
 
   const gYobLabels = svg.append('g')
     .attr('class', 'yob-labels');
@@ -161,14 +161,14 @@ function createGraphic(container) {
   let chosenYob = null;
   let previousYear = null;
 
-  return function updateGraphic(evt) {
-    const detail = evt.detail;
-    const duration = detail.animating ? constants.tickTime : 0;
-    bigYear.text(detail.year);
-    mAxis.update(detail.max);
-    fAxis.update(detail.max);
+  return function updateGraphic() {
+    const year = getState('year');
+    bigYear.text(year);
+    const duration = getState('animating') ? constants.tickTime : 0;
+    mAxis.update(getData('max'));
+    fAxis.update(getData('max'));
 
-    const reset = duration && previousYear > detail.year; 
+    const reset = duration && previousYear > year; 
 
     if (reset) {
       gData.text('');
@@ -179,7 +179,7 @@ function createGraphic(container) {
 
     const barGroups = gData
       .selectAll('g.bar-group')
-      .data(detail.data.data, d => d.yob);
+      .data(getData('year').data, d => d.yob);
     
     barGroups.exit()
       .each(function(d) {
@@ -334,7 +334,43 @@ function createGraphic(container) {
         return b.yob - a.yob;
       });
 
-    previousYear = detail.year;
+    const refYear = getState('refYear');
+
+    if (refYear) {
+      const refYearData = getData('refYear');
+
+      const data = [
+        { side: 'left', xScale: mAxis.scale, data: refYearData.m },
+        { side: 'right', xScale: fAxis.scale, data: refYearData.f }
+      ];
+
+      const lineGroups = gRefYear.selectAll('g')
+        .data(data);
+
+      const lineGroupsEnter = lineGroups.enter()
+        .append('g')
+        .attr('class', d => d.side)
+        .each(function() { select(this).append('polyline'); });
+
+      lineGroups.merge(lineGroupsEnter)
+        .each(function({xScale, data}) {
+          const pointsString = data.map(function({total, under}) {
+            return [xScale(total), yScale(under)].join(',');
+          }).join(' ');
+
+          select(this)
+            .select('polyline')
+            .attr('points', pointsString);
+        });
+    }
+    else {
+      gRefYear.selectAll('g')
+        .data([])
+        .exit()
+        .remove();
+    }
+
+    previousYear = year;
   };
 }
 

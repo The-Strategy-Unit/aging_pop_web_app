@@ -141,3 +141,9 @@
 #pyramid :has(+ .chosen) .small-yob-label {
   opacity: 0;
 }
+
+#pyramid .ref-year polyline {
+  stroke: black;
+  stroke-width: 2px;
+  fill: none;
+}
