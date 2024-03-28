@@ -8,6 +8,15 @@
   --x-mid-width: 5px;
 }
 
+#pyramid .mini-graphic svg {
+  --scaled-width: 10%;
+  position: absolute;
+  width: var(--scaled-width);
+  height: calc((var(--height) / var(--width)) * var(--scaled-width));
+  top: 14%;
+  left: 5%;
+}
+
 #pyramid .mini-graphic .left {
   transform: translateX(var(--margin-left));
 }
