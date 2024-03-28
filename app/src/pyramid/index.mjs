@@ -1,5 +1,4 @@
 import { select } from 'd3-selection';
-import { lookup } from '../shared/lookup.mjs';
 import { variants } from '../shared/variants.mjs';
 import { constants } from '../shared/constants.mjs';
 import { setState, getState, getData, createAppState } from './state.mjs';
@@ -8,6 +7,7 @@ import { createGraphic } from './graphics.mjs';
 import { getTableData } from './table.mjs';
 import { startAnimation } from './animate.mjs';
 import { createMiniGraphic } from './mini-graphic.mjs';
+import { initAreaSelect } from '../shared/controls.mjs';
 
 
 function areaDataChange(evt) {
@@ -109,15 +109,8 @@ function initPyramid(container) {
   const sliderContainer = container.select('.slider-container');
   const graphicContainer = container.select('.graphic-container');
 
-  const areaSelect = controlsContainer.select('.area-select')
-    .on('change', evt => setState({ 'area': evt.target.value }));
-
-  areaSelect.selectAll('option')  
-    .data(Array.from(lookup.values()))
-    .enter()
-    .append('option')
-    .attr('value', d => d.code)
-    .text(d => d.name);
+  const areaCallback = evt => setState({ 'area': evt.target.value });
+  const areaSelect = initAreaSelect(controlsContainer, areaCallback);
 
   const variantSelect = controlsContainer.select('.variant-select')
     .on('change', evt => setState({ 'variant': evt.target.value }));

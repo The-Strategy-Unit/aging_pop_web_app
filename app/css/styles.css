@@ -1,5 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,400;0,700;1,400&display=swap");
-@import url('pyramid.css');
+@import url('variables.css');
+@import url('pyramid/styles.css');
+@import url('line-charts/styles.css');
 
 * {
   box-sizing: border-box;
@@ -36,6 +38,14 @@ a {
 
 a:hover {
   border-top-color: currentColor;
+}
+
+section {
+  margin-bottom: 5em;
+}
+
+select {
+  width: 175px;
 }
 
 .help {

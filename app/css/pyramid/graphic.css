@@ -57,8 +57,8 @@
 }
 
 #pyramid .ticks line {
-  stroke-width: 0.25px;
-  stroke: #666666;
+  stroke-width: var(--tick-width);
+  stroke: var(--tick-col);
 }
 
 #pyramid .ticks text {
@@ -72,19 +72,19 @@
 }
 
 #pyramid .data .males :not(min) {
-  fill: rgb(44, 116, 181);
+  fill: var(--male-col);
 }
 
 #pyramid.v0 .data .males :not(min) {
-  fill: rgb(20, 50, 80);
+  fill: var(--male-col-dark);
 }
 
 #pyramid .data .females :not(min) {
-  fill: rgb(253, 72, 78);
+  fill: var(--female-col);
 }
 
 #pyramid.v0 .data .females :not(min) {
-  fill: rgb(150, 40, 45);
+  fill: var(--female-col-dark);
 }
 
 #pyramid .data :is(.males, .females) rect.min {

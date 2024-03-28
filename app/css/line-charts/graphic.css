@@ -1,0 +1,120 @@
+#line-charts .graphic-container {
+  --width: 400px;
+  --height: 400px;
+  --margin-top: 90px;
+  --margin-right: 60px;
+  --margin-bottom: 50px;
+  --margin-left: 60px;
+  --tick-height: 8px;
+  --tick-gap: 4px;
+  --col-gap: 1em;
+  display: grid;
+  width: 100%;
+  max-width: calc((2*var(--width)) + var(--col-gap));
+  margin-top: 1em;
+  padding-bottom: 1em;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: var(--col-gap);
+  row-gap: 2em;
+}
+
+#line-charts .chart-wrapper {
+  max-width: 400px;
+  aspect-ratio: 1 / 1;
+}
+
+#line-charts .chart {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+#line-charts .top-text {
+  transform: translateX(var(--margin-left));
+  fill: var(--tick-col);
+}
+
+#line-charts .main-title {
+  transform: translateY(10px);
+  font-size: 1.2em;
+  font-weight: bold;
+  fill: black;
+}
+
+#line-charts .rate-text {
+  transform: translateY(40px);
+  font-size: 0.8em;
+}
+
+#line-charts .legend-text {
+  transform: translateY(60px);
+  font-size: 0.8em;
+}
+
+#line-charts .legend-text :first-child {
+  fill: var(--female-col);
+}
+
+#line-charts .legend-text :last-child {
+  fill: var(--male-col);
+}
+
+#line-charts .axes {
+  font-size: 0.8em;
+}
+
+#line-charts .x-axis {
+  transform: translateX(var(--margin-left)) translateY(calc(var(--height) - var(--margin-bottom)));
+}
+
+#line-charts .y-axis {
+  transform: translateX(var(--margin-left)) translateY(var(--margin-top));
+}
+
+#line-charts .axis line {
+  stroke: var(--tick-col);
+  stroke-width: var(--tick-width);
+}
+
+#line-charts .y-axis line {
+  stroke-opacity: 0.75;
+}
+
+#line-charts .x-axis .axis-title {
+  transform: translateY(var(--margin-bottom));
+}
+
+#line-charts .x-axis .ticks text {
+  transform: translateY(calc(var(--tick-height) + var(--tick-gap)));
+}
+
+#line-charts .data .line {
+  fill: none;
+}
+
+#line-charts .data .males {
+  stroke: var(--male-col);
+}
+
+#line-charts .data .females {
+  stroke: var(--female-col);
+}
+
+
+@media (max-width: 500px) {
+  #line-charts .graphic-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+@media (max-width: 400px) {
+  #line-charts .controls-container label:has(select) {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+
+
+

@@ -1,14 +1,14 @@
 import { load } from '../shared/load.mjs';
 import { lookup } from '../shared/lookup.mjs';
 import { variants, assumptions } from '../shared/variants.mjs';
+import * as utils from '../shared/state.mjs';
 
 let getState, setState, getData;
 
-const defaultConverter = v => v === null ? '' : v;
 
 const stateConverters = {
-  area: defaultConverter,
-  variant: defaultConverter,
+  area: utils.defaultConverter,
+  variant: utils.defaultConverter,
   year: v => v === null ? NaN : parseInt(v),
   refYear: v => v === null ? null : parseInt(v),
   animating: v => !!v
@@ -16,32 +16,13 @@ const stateConverters = {
 
 
 function createAppState(container) {
-  const state = Object.entries(stateConverters)
-    .reduce(function(obj, [key, converter]) {
-      obj[key] = converter(null);
-      return obj;
-    }, {});
-
+  const state = utils.createStateObject(stateConverters);
   const data = {};
-
-  const trigger = function(evtType, detail) {
-    const customEvent = new CustomEvent(evtType, { detail });
-    container.node().dispatchEvent(customEvent);
-  };
+  const trigger = utils.createTrigger(container);
+  const updateState = utils.createStateUpdater(state, stateConverters);
 
   setState = function(values) {
-    const updatedList = new Set();
-    
-    Object.keys(state).forEach(function(key) {
-      if (!Object.hasOwn(values, key)) { return; }
-      const rawVal = values[key];
-      const val = stateConverters[key](rawVal);
-      if (val !== state[key]) {
-        state[key] = val;
-        updatedList.add(key);
-      }
-    });
-
+    const updatedList = updateState(values);
     if (!updatedList.size) { return; }
     
     if (updatedList.has('area')) { setAreaData(); }
