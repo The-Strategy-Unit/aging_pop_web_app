@@ -1,5 +1,5 @@
-@import url("pyramid-graphic.css");
-@import url("pyramid-mini-graphic.css");
+@import url("graphic.css");
+@import url("mini-graphic.css");
 
 #pyramid {
   display: grid;
@@ -44,10 +44,6 @@
 #pyramid > .titles-container p:empty::before {
   content:"";
   display:inline-block;
-}
-
-#pyramid select {
-  width: 175px;
 }
 
 #pyramid .controls-container :first-child {
@@ -244,7 +240,6 @@ input[type="range"]::-webkit-slider-runnable-track {
 
   #pyramid > .controls-container {
     width: 100%;
-    justify-self: right;
     display: flex;
     column-gap: 2em;
     flex-wrap: wrap;

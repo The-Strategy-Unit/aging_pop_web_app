@@ -1,0 +1,13 @@
+@import url("graphic.css");
+
+#line-charts > .controls-container {
+  width: 100%;
+  display: flex;
+  column-gap: 2em;
+  flex-wrap: wrap;
+  row-gap: 1em;
+}
+
+#line-charts > .controls-container label:last-child {
+  width: 100%;
+}

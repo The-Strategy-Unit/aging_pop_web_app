@@ -5,7 +5,7 @@ import { format } from 'd3-format';
 import 'd3-transition';
 import { getState, getData } from './state.mjs';
 import { constants } from '../shared/constants.mjs';
-import { _getCSSVariable } from '../shared/css.mjs';
+import { createGetCssVariable } from '../shared/css.mjs';
 
 const regularFormatter = format(',');
 const bigFormatter = d => d ? `${regularFormatter(d/1000)}k` : '0';
@@ -13,21 +13,21 @@ const bigFormatter = d => d ? `${regularFormatter(d/1000)}k` : '0';
 
 function createGraphic(container) {
   const graphicContainer = container.select('.graphic-container');
-  const getCSSVariable = _getCSSVariable.bind(graphicContainer.node());
+  const getCssVariable = createGetCssVariable(graphicContainer);
 
-  const width = getCSSVariable('width');
-  const height = getCSSVariable('height');
+  const width = getCssVariable('width');
+  const height = getCssVariable('height');
 
   const margins = {
-    top: getCSSVariable('margin-top'),
-    right: getCSSVariable('margin-right'),
-    bottom: getCSSVariable('margin-bottom'),
-    left: getCSSVariable('margin-left'),
-    xMidWidth: getCSSVariable('x-mid-width')
+    top: getCssVariable('margin-top'),
+    right: getCssVariable('margin-right'),
+    bottom: getCssVariable('margin-bottom'),
+    left: getCssVariable('margin-left'),
+    xMidWidth: getCssVariable('x-mid-width')
   };
   
   const halfWidth = (width - (margins.left + margins.xMidWidth + margins.right)) / 2;
-  const tickHeight = getCSSVariable('tick-height');
+  const tickHeight = getCssVariable('tick-height');
 
   const svg = graphicContainer.select('.main-graphic svg')
     .attr('width', width)

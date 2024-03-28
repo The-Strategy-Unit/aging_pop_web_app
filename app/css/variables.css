@@ -1,0 +1,8 @@
+:root {
+  --male-col: rgb(44, 116, 181);
+  --male-col-dark: rgb(20, 50, 80);
+  --female-col: rgb(253, 72, 78);
+  --female-col-dark: rgb(150, 40, 45);
+  --tick-col: #666666;
+  --tick-width: 0.25px;
+}
