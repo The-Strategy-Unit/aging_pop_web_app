@@ -149,7 +149,7 @@ function createGraphic(container) {
       .data(tickLabels)
       .enter()
       .append('text')
-      .text(d => d)
+      .text(d => `${d}${d === 100 ? '+' : ''}`)
       .attr('x', 0)
       .attr('y', d => yScale(d));
   };
