@@ -36,7 +36,7 @@
 
 #line-charts .main-title {
   transform: translateY(10px);
-  font-size: 1.2em;
+  font-size: 1em;
   font-weight: bold;
   fill: black;
 }
@@ -88,8 +88,13 @@
   transform: translateY(calc(var(--tick-height) + var(--tick-gap)));
 }
 
-#line-charts .data .line {
+#line-charts .data {
+  transform: translateX(var(--margin-left)) translateY(var(--margin-top));
+}
+
+#line-charts .data path {
   fill: none;
+  stroke-width: 2px;
 }
 
 #line-charts .data .males {
