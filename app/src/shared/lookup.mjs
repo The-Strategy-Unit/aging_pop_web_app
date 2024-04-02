@@ -14,7 +14,7 @@ async function initLookup() {
     const obj = { code, name };
     obj.entity = d.entity || 'local authority';
     obj.pyramidUrl = `${dataPath}/pyramid/${code}.json`;
-    obj.lineChartsUrl = `${dataPath}/line-charts/${code}.csv`;
+    obj.lineChartsUrl = `${dataPath}/line-charts/${code}.json`;
     obj.histogramsUrl = `${dataPath}/histograms/${code}.json`;
     return obj;
   })

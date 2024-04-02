@@ -24,8 +24,7 @@ function createAppState(container) {
     
     if (updatedList.has('area')) { setAreaData(); }
     else if (updatedList.has('pod')) { setPodData(); }
-    
-    if (updatedList.has('smooth')) { triggerSmoothEvent(); }
+    else if (updatedList.has('smooth')) { triggerSmoothEvent(); }
   };
 
   getState = function(prop) {
@@ -47,13 +46,7 @@ function createAppState(container) {
   };
 
   const setPodData = function() {
-    data.pod = Array.from(new Set(
-      data.area.filter(d => d.pod === state.pod)
-        .map(d => d.hsagrp)
-    ));
-    // const index = data.area.findIndex(d => d.pod === state.pod);
-    // data.pod = data.area[index].data;
-    // data.podLabel = data.area[index].podLabel;
+    data.pod = data.area.filter(d => d.pod === state.pod);
     trigger('poddatachange');
   };
 
