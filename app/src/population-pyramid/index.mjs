@@ -143,10 +143,20 @@ function initPyramid(container) {
     });
 
   graphicContainer.select('.play-button')
-    .on('click', () => setState( { 'animating': true }));
+    .on('click', function(evt) {
+      setState( { 'animating': true });
+      if (!evt.pointerType) {
+        graphicContainer.select('.pause-button').node().focus();
+      }
+    });
 
   graphicContainer.select('.pause-button')
-    .on('click', () => setState( { 'animating': false }));
+    .on('click', function(evt) {
+      setState( { 'animating': false });
+      if (!evt.pointerType) {
+        graphicContainer.select('.play-button').node().focus();
+      }
+    });
 
   const updateGraphic = createGraphic(container);
   const updateMiniGraphic = createMiniGraphic(container);
