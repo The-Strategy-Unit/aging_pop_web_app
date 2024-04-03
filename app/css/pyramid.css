@@ -177,6 +177,10 @@ input[type="range"]::-webkit-slider-runnable-track {
   min-height: 48px;
 }
 
+#pyramid .play-pause-container :focus-visible svg {
+  outline: 2px solid black;
+}
+
 #pyramid .play-pause-container button g {
   fill: rgb(44, 116, 181);
 }
