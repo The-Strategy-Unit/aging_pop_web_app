@@ -1,0 +1,13 @@
+{
+  "v1": { "name": "Principal", "short": "V1 - B2L2M2" },
+  "v2": { "name": "High fertility", "short": "V2 - B3L2M2" },
+  "v3": { "name": "Low fertility", "short": "V3 - B1L2M2" },
+  "v4": { "name": "High life expectancy", "short": "V4 - B2L3M2" },
+  "v5": { "name": "Low life expectancy", "short": "V5 - B2L1M2" },
+  "v6": { "name": "High migration", "short": "V6 - B2L2M3" },
+  "v7": { "name": "Low migration", "short": "V7 - B2L2M1" },
+  "v8": { "name": "High population", "short": "V8 - B3L3M3" },
+  "v9": { "name": "Low population", "short": "V9 - B1L1M1" },
+  "v10": { "name": "Young age structure", "short": "V10 - B3L1M3" },
+  "v11": { "name": "Old age structure", "short": "V11 - B1L3M1" }
+}
