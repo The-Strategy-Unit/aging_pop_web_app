@@ -6,6 +6,7 @@ import 'd3-transition';
 import { getState, getData } from './state.mjs';
 import { constants } from '../shared/constants.mjs';
 import { createGetCssVariable } from '../shared/css.mjs';
+import { addGroup, addGroups } from '../shared/svg.mjs';
 
 const regularFormatter = format(',');
 const bigFormatter = d => d ? `${regularFormatter(d/1000)}k` : '0';
@@ -34,44 +35,41 @@ function createGraphic(container) {
     .attr('height', height)
     .attr('viewBox', `0 0 ${width} ${height}`);
 
-  const gAgeStructure = svg.append('g')
-    .attr('class', 'age-structure')
-    .attr('dominant-baseline', 'hanging');
-  
-  gAgeStructure.append('text')
+  const topLevelGroups = [
+    'age-structure', 'axes', 'data', 'grids', 'ref-year', 'yob-labels'
+  ];
+
+  const [
+    gAgeStructure,
+    gAxes,
+    gData,
+    gGrids,
+    gRefYear,
+    gYobLabels
+  ] = addGroups(svg, topLevelGroups);
+
+  gAgeStructure
+    .append('text')
+    .attr('dominant-baseline', 'hanging')
     .text('Age structure');
 
-  const bigYear = gAgeStructure.append('text')
+
+  const bigYear = gAgeStructure
+    .append('text')
+    .attr('dominant-baseline', 'hanging')
     .attr('class', 'big-year');
 
-  const gAxes = svg.append('g')
-    .attr('class', 'axes');
 
-  const xAxes = gAxes.append('g')
-    .attr('class', 'x-axes');
+  const xAxes = addGroup(gAxes, 'x-axes');
 
-  const gData = svg.append('g')
-    .attr('class', 'data');
-
-  const gGrids = svg.append('g')
-    .attr('class', 'grids');
-
-  const gRefYear = svg.append('g')
-    .attr('class', 'ref-year');
-
-  const gYobLabels = svg.append('g')
-    .attr('class', 'yob-labels');
 
   const createXAxis = function(side, label) {
-    const gAxis = xAxes.append('g')
-      .attr('class', `axis, x-axis, ${side}`)
+    const gAxis = addGroup(xAxes, `axis, x-axis, ${side}`)
       .attr('text-anchor', 'middle');
 
-    const gGrid = gGrids.append('g')
-      .attr('class', `grid ${side}`);
-  
-    gAxis.append('g')
-      .attr('class', 'ticks');
+    addGroup(gAxis, 'ticks');
+
+    const gGrid = addGroup(gGrids, `grid ${side}`);
   
     gAxis.append('text')
       .attr('class', 'axis-title')
@@ -140,15 +138,14 @@ function createGraphic(container) {
     const tickLabels = d3Ticks(0, 100, 20);
     const xTranslate = margins.left + halfWidth + (margins.xMidWidth / 2);
 
-    gAxes.append('g')
-      .attr('class', 'axis, y-axis')
+    addGroup(gAxes, 'axis, y-axis')
       .style('transform', `translateX(${xTranslate}px)`)
       .attr('text-anchor', 'middle')
-      .attr('dominant-baseline', 'middle')
       .selectAll('text')
       .data(tickLabels)
       .enter()
       .append('text')
+      .attr('dominant-baseline', 'middle')
       .text(d => `${d}${d === 100 ? '+' : ''}`)
       .attr('x', 0)
       .attr('y', d => yScale(d));

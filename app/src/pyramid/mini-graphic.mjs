@@ -2,6 +2,7 @@ import { select } from 'd3-selection';
 import { scaleLinear } from 'd3-scale';
 import { getState, getData } from './state.mjs';
 import { createGetCssVariable } from '../shared/css.mjs';
+import { addGroup, addGroups } from '../shared/svg.mjs';
 
 
 function createMiniGraphic(container) {
@@ -47,8 +48,7 @@ function createMiniGraphic(container) {
       { side: 'right', range: [0, halfWidth], data: refYearData.f }
     ];
 
-    const gData = svg.append('g')
-      .attr('class', 'data');
+    const [gData, gRefYear] = addGroups(svg, ['data', 'ref-year']);
 
     gData.selectAll('g')
       .data(data)
@@ -70,15 +70,12 @@ function createMiniGraphic(container) {
           .attr('points', points);
       });
 
-    svg.append('g')
-      .attr('class', 'ref-year')
-      .append('text')
+    gRefYear.append('text')
       .attr('text-anchor', 'middle')
       .text(refYear);
 
     if (getData('year').variant !== 0) {
-      svg.append('g')
-        .attr('class', 'assumptions')
+      addGroup(svg, 'assumptions')
         .append('text')
         .attr('text-anchor', 'middle')
         .text(getData('assumptions')[0]);

@@ -1,13 +1,14 @@
 import { select } from 'd3-selection';
 import { variants } from '../shared/variants.mjs';
 import { constants } from '../shared/constants.mjs';
+import { combineObjects } from '../shared/objects.mjs';
 import { setState, getState, getData, createAppState } from './state.mjs';
 import template from './html/pyramid.html';
 import { createGraphic } from './graphics.mjs';
 import { getTableData } from './table.mjs';
 import { startAnimation } from './animate.mjs';
 import { createMiniGraphic } from './mini-graphic.mjs';
-import { initAreaSelect } from '../shared/controls.mjs';
+import { initSelectMenus } from '../shared/controls.mjs';
 
 
 function areaDataChange(evt) {
@@ -109,18 +110,7 @@ function initPyramid(container) {
   const sliderContainer = container.select('.slider-container');
   const graphicContainer = container.select('.graphic-container');
 
-  const areaCallback = evt => setState({ 'area': evt.target.value });
-  const areaSelect = initAreaSelect(controlsContainer, areaCallback);
-
-  const variantSelect = controlsContainer.select('.variant-select')
-    .on('change', evt => setState({ 'variant': evt.target.value }));
-
-  variantSelect.selectAll('option')  
-    .data(Array.from(Object.entries(variants)))
-    .enter()
-    .append('option')
-    .attr('value', d => d[0])
-    .text(d => d[1].name);
+  const initialSelectValues = initSelectMenus(controlsContainer, setState);
 
   const yearSlider = sliderContainer.select('input[type="range"]')
     .attr('min', 2010)
@@ -190,13 +180,10 @@ function initPyramid(container) {
       }
     });
 
-  const initialState = {
-    area: areaSelect.node().value,
-    variant: variantSelect.node().value,
-    year: yearSlider.node().value,
-    refYear: null,
-    animating: false
-  };
+  const initialState = combineObjects(
+    initialSelectValues,
+    { year: yearSlider.node().value, refYear: null, animating: false }
+  );
 
   setState(initialState);
 }

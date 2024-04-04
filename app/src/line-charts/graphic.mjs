@@ -7,6 +7,8 @@ import { scaleLinear } from 'd3-scale';
 import { getState, getData } from './state.mjs';
 import { createGetCssVariable } from '../shared/css.mjs';
 import { constants } from '../shared/constants.mjs';
+import { createSmallMultiplesFramework } from '../shared/small-multiples.mjs';
+import { addGroup, addGroups } from '../shared/svg.mjs';
 
 
 const formatter = format(',');
@@ -56,7 +58,7 @@ function createGraphic(container) {
     return 1000 * d3Max(data.data, d => Math.max(d.f, d.m, d.fs, d.ms));
   };
 
-  const createTick = function(d) {
+  const createYTick = function(d) {
     const sel = select(this);
 
     if (d !== 0) {
@@ -83,22 +85,16 @@ function createGraphic(container) {
       .attr('viewBox', `0 0 ${width} ${height}`)
       .attr('class', 'chart');
 
-    const gAxes = svg.append('g')
-      .attr('class', 'axes');
-
-    const gData = svg.append('g')
-      .attr('class', 'data');
-
-    const gTopText = svg.append('g')
-      .attr('class', 'top-text')
-      .attr('dominant-baseline', 'hanging');
-
+    const [gAxes, gData, gTopText] = addGroups(svg, ['axes', 'data', 'top-text']);
+      
     gTopText.append('text')
+      .attr('dominant-baseline', 'hanging')
       .attr('class', 'main-title')
       .text(data.label);
 
     gTopText.append('text')
-      .attr('class', 'rate-text')
+      .attr('class', 'sub')
+      .attr('dominant-baseline', 'hanging')
       .text('Rate per 1,000 person-years');
 
     gTopText.append('text')
@@ -107,25 +103,21 @@ function createGraphic(container) {
       .data(['Women', '|', 'Men'])
       .enter()
       .append('tspan')
+      .attr('dominant-baseline', 'hanging')
       .text(d => d);
 
-    const gXAxis = gAxes.append('g')
-      .attr('class', 'axis x-axis');
+    const [gXAxis, gYAxis] = addGroups(gAxes, ['axis x-axis', 'axis y-axis']);
 
-    const gYAxis = gAxes.append('g')
-      .attr('class', 'axis y-axis');
-
-    const xTickLabels = d3Ticks(0, 100, 5);
+    const xTickLabels = d3Ticks(xDomain[0], xDomain[1], 5);
 
     gXAxis.append('line')
       .attr('class', 'axis-line')
-      .attr('x1', 0)
+      .attr('x1', xScale(xDomain[0]))
       .attr('y1', 0)
-      .attr('x2', xScale(100))
+      .attr('x2', xScale(xDomain[1]))
       .attr('y2', 0);
 
-    gXAxis.append('g')
-      .attr('class', 'ticks')
+    addGroup(gXAxis, 'ticks')
       .selectAll('g.tick')
       .data(xTickLabels)
       .enter()
@@ -154,9 +146,7 @@ function createGraphic(container) {
     let yScale = getYScale(yMax);
     const yTickLabels = yScale.ticks(5);
 
-    gYAxis
-      .append('g')
-      .attr('class', 'ticks')
+    addGroup(gYAxis, 'ticks')
       .selectAll('g.tick')
       .data(yTickLabels, d => d)
       .enter()
@@ -165,7 +155,7 @@ function createGraphic(container) {
       .attr('class', 'tick')
       .style('transform', d => `translateY(${yScale(d)}px)`)
       .style('opacity', 1)
-      .each(createTick);
+      .each(createYTick);
 
     const line = d3Line()
       .x(d => xScale(d.x))
@@ -203,7 +193,7 @@ function createGraphic(container) {
         .attr('class', 'tick')
         .style('transform', d => `translateY(${oldYScale(d)}px)`)
         .style('opacity', 0)
-        .each(createTick);
+        .each(createYTick);
 
       yTicks.merge(yTicksEnter)
         .transition()
@@ -233,29 +223,14 @@ function createGraphic(container) {
     el.removeChart = removeChart;
   };
 
-  
+
+  const updateSmallMultiples = createSmallMultiplesFramework(graphicContainer, createChart);
 
 
   return function updateGraphic() {
-    const charts = graphicContainer.selectAll('div.chart-wrapper')
-      .data(getData('pod'), d => `${d.pod}-${d.group}`);
-
-    charts.exit()
-      .each(function() {
-        this.removeChart();
-      });
-
-    charts.enter()
-      .append('div')
-      .attr('class', 'chart-wrapper')
-      .each(function() {
-        createChart(this);
-      });
-
-    charts
-      .each(function() {
-        this.updateChart();
-      });
+    const data = getData('pod');
+    const keyFunction = d => `${d.pod}-${d.group}`;
+    updateSmallMultiples(data, keyFunction);
   };
 }
 

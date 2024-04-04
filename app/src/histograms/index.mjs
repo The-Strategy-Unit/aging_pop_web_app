@@ -1,33 +1,35 @@
 import { initSelectMenus } from '../shared/controls.mjs';
 import { combineObjects } from '../shared/objects.mjs';
 import { createGraphic } from './graphic.mjs';
-import template from './html/line-charts.html';
-import { createAppState, setState } from './state.mjs';
+import template from './html/histograms.html';
+import { createAppState, setState, getState } from './state.mjs';
 
 
-function initLineCharts(container) {
+function initHistograms(container) {
   createAppState(container);
   container.html(template);
 
   const controlsContainer = container.select('.controls-container');
   const initialSelectValues = initSelectMenus(controlsContainer, setState);
 
-  const smoothCheck = controlsContainer.select('input[type=checkbox]')
-    .on('change', function(evt) { setState({ 'smooth': evt.target.checked }); });
+  const noAdjust = controlsContainer.select('input[type=checkbox]')
+    .on('change', function(evt) { setState({ 'noAdjust': evt.target.checked }); });
 
   const updateGraphic = createGraphic(container);
 
   container
-    .on('poddatachange', updateGraphic)
-    .on('smoothchange', updateGraphic);
+    .on('variantdatachange', updateGraphic)
+    .on('noadjustchange', function() {
+      container.classed('no-adjust', getState('noAdjust'));
+    });
 
   const initialState = combineObjects(
     initialSelectValues,
-    { smooth: smoothCheck.node().checked }
+    { noAdjust: noAdjust.node().checked }
   );
 
   setState(initialState);
 }
 
 
-export { initLineCharts };
+export { initHistograms };
