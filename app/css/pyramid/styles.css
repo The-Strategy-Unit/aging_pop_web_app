@@ -43,19 +43,7 @@
 
 #pyramid > .titles-container p:empty::before {
   content:"";
-  display:inline-block;
-}
-
-#pyramid .controls-container :first-child {
-  grid-area: "area";
-}
-
-#pyramid .controls-container :nth-child(2) {
-  grid-area: "variant";
-}
-
-#pyramid .controls-container :last-child {
-  grid-area: "lock";
+  display: inline-block;
 }
 
 #pyramid input[type="range"] {
@@ -205,18 +193,33 @@ input[type="range"]::-webkit-slider-runnable-track {
       "graphic slider data";
   }
 
-  #pyramid > .controls-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas:
-      "area variant"
-      "lock lock";
-  }
-
   #pyramid .links {
     flex-direction: row;
     column-gap: 4em;
     margin-top: 2em;
+  }
+
+  #pyramid .controls-container .dropdowns {
+    all: unset;
+    display: flex;
+  }
+
+  #pyramid .controls-container .dropdowns,
+  #pyramid .controls-container .dropdowns :where(label, span, select span::after),
+  #pyramid .controls-container .dropdowns span::after {
+    all: unset;
+  }
+
+  #pyramid .controls-container .dropdowns {
+    display: flex;
+    column-gap: 2em;
+    margin-bottom: 1em;
+  }
+
+  #pyramid .controls-container .dropdowns label {
+    all: unset;
+    display: flex;
+    flex-direction: column;
   }
 
   #pyramid :where(.controls-container, .data-container > *) {
@@ -236,14 +239,6 @@ input[type="range"]::-webkit-slider-runnable-track {
       "titles titles"
       "graphic slider"
       "data data";
-  }
-
-  #pyramid > .controls-container {
-    width: 100%;
-    display: flex;
-    column-gap: 2em;
-    flex-wrap: wrap;
-    row-gap: 1em;
   }
 
   #pyramid > .slider-container {

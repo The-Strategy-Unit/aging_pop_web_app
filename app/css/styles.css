@@ -2,6 +2,7 @@
 @import url('variables.css');
 @import url('pyramid/styles.css');
 @import url('line-charts/styles.css');
+@import url('histograms/styles.css');
 
 * {
   box-sizing: border-box;
@@ -109,4 +110,60 @@ input[type="checkbox"]::before {
 
 input[type="checkbox"]:checked::before {
   left: 1em;
+}
+
+.dropdowns {
+  display: grid;
+  column-gap: 2em;
+  grid-template-columns: 370px 370px;
+  row-gap: 1em;
+  margin-bottom: 1em;
+}
+
+.dropdowns label {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 0.25em;
+}
+
+.dropdowns label span {
+  flex: 1 1 0;
+  overflow: hidden;
+  white-space: nowrap
+}
+
+.dropdowns label span::after {
+  content: " ...................................";
+  font-size: 0.7em;
+  color: #aaaaaa;
+  display: inline-block;
+  transform: translateY(3px);
+  opacity: 0.5;
+}
+
+
+@media (max-width: 830px) {
+  .dropdowns {
+    grid-template-columns: min(370px, 100%);
+  }
+
+  .dropdowns label span::after {
+    content: none;
+  }
+}
+
+
+@media (max-width: 400px) {
+  .dropdowns label {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .dropdowns label span {
+    all: unset;
+  }
+
+  .dropdowns label select {
+    width: 100%;
+  }
 }
