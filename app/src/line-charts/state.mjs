@@ -39,8 +39,8 @@ function createAppState(container) {
   const setAreaData = async function() {
     const info = lookup.get(state.area);
     data.name = info.name;
-    data.url = info.lineChartsUrl;
-    data.area = await load(data.url);
+    data.file = info.lineChartsFile;
+    data.area = await load(data.file);
     trigger('areadatachange');
     setPodData();
   };

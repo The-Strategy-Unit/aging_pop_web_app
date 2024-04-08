@@ -44,8 +44,8 @@ function createAppState(container) {
   const setAreaData = async function() {
     const info = lookup.get(state.area);
     data.name = info.name;
-    data.url = info.pyramidUrl;
-    data.area = await load(data.url);
+    data.file = info.pyramidFile;
+    data.area = await load(data.file);
     
     data.max = data.area
       .map(function(d) {

@@ -1,5 +1,11 @@
+const zipExtension = '.gz';
+const isProd = document.documentElement.dataset.environment === 'prod';
+
 const constants = {
-  tickTime: 1000
+  isProd,
+  dataFilePrefix: '/data/',
+  dataFileSuffix: `.json${isProd ? zipExtension : ''}`,
+  tickTime: 1000,
 };
 
 export { constants };

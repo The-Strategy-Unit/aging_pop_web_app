@@ -1,21 +1,18 @@
 import { load } from './load.mjs';
 
-const dataPath = '/data';
-const codesUrl = `${dataPath}/codes.json`;
-
 const lookup = new Map();
 
 
 async function initLookup() {
-  const data = await load(codesUrl);
+  const data = await load('codes');
 
   data.map(function(d) {
     const { code, name } = d;
     const obj = { code, name };
     obj.entity = d.entity || 'local authority';
-    obj.pyramidUrl = `${dataPath}/pyramid/${code}.json`;
-    obj.lineChartsUrl = `${dataPath}/line-charts/${code}.json`;
-    obj.histogramsUrl = `${dataPath}/histograms/${code}.json`;
+    obj.pyramidFile = `pyramid/${code}`;
+    obj.lineChartsFile = `line-charts/${code}`;
+    obj.histogramsFile = `histograms/${code}`;
     return obj;
   })
     .sort(function(a, b) {

@@ -4,12 +4,17 @@
   "description": "",
   "main": "app/js/main.mjs",
   "scripts": {
-    "build": "rollup -c",
+    "roll:dev": "rollup -c",
+    "roll:dist": "rollup -c rollup.config-dist.mjs",
+    "clean-dist": "rm -f dist/*.min* && rm -f dist/data/*.json.gz dist/data/*/*.json.gz",
+    "copy-css": "cleancss --output dist/styles.min.css app/css/*",
+    "copy-data": "cp -r app/data dist/ && find dist/data -name \"*.json\" | xargs -Ix gzip x",
+    "dist": "npm run clean-dist && npm run roll:dist && npm run copy-data && npm run copy-css",
     "lint": "npx eslint@8 . --ext .mjs --max-warnings=0",
     "lint:fix": "npx eslint@8 . --ext .mjs --fix --max-warnings=0",
     "serve": "lite-server",
-    "start": "npm run build & npm run serve & npm run watch",
-    "watch": "nodemon --ext mjs,html,json,css --exec npm run build"
+    "start": "npm run roll:dev && npm run serve & npm run watch",
+    "watch": "nodemon --ext mjs,html,json,css --exec npm run roll:dev"
   },
   "lint-staged": {
     "*.mjs": "npm run lint"
@@ -19,20 +24,22 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
-    "lite-server": "^2.6.1"
+    "rollup-plugin-string": "^3.0.0",
+    "@rollup/plugin-terser": "^0.4.4",
+    "clean-css-cli": "^5.6.3",
+    "lite-server": "^2.6.1",
+    "rollup": "^4.13.0"
   },
   "dependencies": {
     "d3-array": "^3.2.4",
     "d3-fetch": "^3.0.1",
     "d3-format": "^3.1.0",
-    "d3-interpolate": "^3.0.1",
     "d3-scale": "^4.0.2",
     "d3-scale-chromatic": "^3.1.0",
     "d3-selection": "^3.0.0",
     "d3-shape": "^3.2.0",
     "d3-transition": "^3.0.1",
     "nodemon": "^3.1.0",
-    "rollup": "^4.13.0",
-    "rollup-plugin-string": "^3.0.0"
+    "pako": "^2.1.0"
   }
 }

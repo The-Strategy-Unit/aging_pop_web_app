@@ -1,6 +1,7 @@
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import { string } from 'rollup-plugin-string';
+import terser from '@rollup/plugin-terser';
 
 
 const src = 'app/src/main.mjs';
@@ -11,22 +12,22 @@ const onWarn = function(warning, warn) {
 };
 
 
-const dev = {
+const dist = {
   input: src,
   output: {
-    file: 'app/js/script.js',
+    file: 'dist/script.min.js',
     format: 'iife',
-    sourcemap: true
   },
   plugins: [
     nodeResolve(),
     commonjs(),
     string({
       include: ['**/*.html', '**/*.css'],
-    })
+    }),
+    terser()
   ],
   onwarn: onWarn
 };
 
 
-export default dev;
+export default dist;
