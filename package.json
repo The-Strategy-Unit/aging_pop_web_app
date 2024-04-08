@@ -5,8 +5,8 @@
   "main": "app/js/main.mjs",
   "scripts": {
     "build": "rollup -c",
-    "lint": "npx eslint . --ext .mjs --max-warnings=0",
-    "lint:fix": "npx eslint . --ext .mjs --fix --max-warnings=0",
+    "lint": "npx eslint@8 . --ext .mjs --max-warnings=0",
+    "lint:fix": "npx eslint@8 . --ext .mjs --fix --max-warnings=0",
     "serve": "lite-server",
     "start": "npm run build & npm run serve & npm run watch",
     "watch": "nodemon --ext mjs,html,json,css --exec npm run build"
