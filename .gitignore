@@ -3,3 +3,5 @@ node_modules/
 .vscode
 *.js
 *.js.map
+*.min.css
+*.json.gz

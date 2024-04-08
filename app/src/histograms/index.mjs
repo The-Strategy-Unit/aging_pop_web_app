@@ -1,7 +1,7 @@
 import { initSelectMenus } from '../shared/controls.mjs';
 import { combineObjects } from '../shared/objects.mjs';
 import { createGraphic } from './graphic.mjs';
-import template from './html/histograms.html';
+import template from '../../html/histograms.html';
 import { createAppState, setState, getState } from './state.mjs';
 
 

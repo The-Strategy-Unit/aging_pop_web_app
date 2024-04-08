@@ -15,3 +15,11 @@ npm run start
 ```
 
 This should open the app at [http://localhost:8000/](http://localhost:8000/).
+
+## Building for Production
+
+To build the production version of the app, run:
+
+``` sh
+npm run dist
+```

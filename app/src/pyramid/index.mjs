@@ -3,12 +3,13 @@ import { variants } from '../shared/variants.mjs';
 import { constants } from '../shared/constants.mjs';
 import { combineObjects } from '../shared/objects.mjs';
 import { setState, getState, getData, createAppState } from './state.mjs';
-import template from './html/pyramid.html';
+import template from '../../html/pyramid.html';
 import { createGraphic } from './graphics.mjs';
 import { getTableData } from './table.mjs';
 import { startAnimation } from './animate.mjs';
 import { createMiniGraphic } from './mini-graphic.mjs';
 import { initSelectMenus } from '../shared/controls.mjs';
+import { getDataFileUrl } from '../shared/data-files.mjs';
 
 
 function areaDataChange(evt) {
@@ -16,10 +17,10 @@ function areaDataChange(evt) {
   const dataContainer = container.select('.data-container');
   const area = getState('area');
   const name = getData('name').toLowerCase().replace(/\s/g, '-');
-
+  
   dataContainer.select('.download-link')
-    .attr('href', getData('url'))
-    .attr('download', `pyramid-${area}-${name}.json`);
+    .attr('href', getDataFileUrl(getData('file')))
+    .attr('download', `pyramid-${area}-${name}${constants.dataFileSuffix}`);
 }
 
 
