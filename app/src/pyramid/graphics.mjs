@@ -76,6 +76,7 @@ function createGraphic(container) {
       .attr('dominant-baseline', 'auto')
       .append('tspan')
       .attr('dx', `${halfWidth /2}px`)
+      .attr('dy', '-0.25em')
       .text(label);
 
     let oldMax;
