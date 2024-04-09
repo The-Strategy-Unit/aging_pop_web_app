@@ -41,6 +41,10 @@ a:hover {
   border-top-color: currentColor;
 }
 
+p {
+  max-width: 80ch;
+}
+
 section {
   margin-bottom: 5em;
 }
