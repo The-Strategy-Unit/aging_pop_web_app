@@ -49,8 +49,54 @@ section {
   margin-bottom: 5em;
 }
 
-select {
+select, [role="listbox"], .area-select ul {
   width: 175px;
+  min-height: 25px;
+}
+
+.area-select {
+  position: relative;
+}
+
+.area-select ul {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  flex-direction: column;
+  padding: 0;
+  row-gap: 0.3em;
+  z-index: 100;
+  margin: 0;
+  border: 1px solid #666666;
+  border-radius: 3px;
+  background-color: rgba(255,255,255,0.7);
+  backdrop-filter: blur(2px);
+  font-size: 0.8em;
+}
+
+.area-select.open ul {
+  display: flex;
+}
+
+.area-select li {
+  list-style: none;
+  overflow: hidden;
+  text-wrap: nowrap;
+  text-overflow: ellipsis;
+  padding-left: 4px;
+  padding-right: 4px;
+  margin: 0;
+  cursor: pointer;
+}
+
+.area-select li:focus {
+  outline: 3px solid purple;
+}
+
+.area-select li.best-match {
+  color: white;
+  background-color: black;
 }
 
 .help {
@@ -144,6 +190,7 @@ input[type="checkbox"]:checked::before {
   transform: translateY(3px);
   opacity: 0.5;
 }
+
 
 
 @media (max-width: 830px) {
