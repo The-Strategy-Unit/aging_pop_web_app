@@ -132,7 +132,7 @@ function createGraphic(container) {
   };
 
   const yScale = scaleLinear()
-    .domain([0, 100])
+    .domain([0, 101])
     .range([height - margins.bottom, margins.top]);
 
   const createYAxis = function() {
@@ -146,10 +146,11 @@ function createGraphic(container) {
       .data(tickLabels)
       .enter()
       .append('text')
-      .attr('dominant-baseline', 'middle')
+      .attr('dominant-baseline', 'auto')
       .text(d => `${d}${d === 100 ? '+' : ''}`)
       .attr('x', 0)
-      .attr('y', d => yScale(d));
+      .attr('y', d => yScale(d))
+      .attr('dy', '0.1em');
   };
 
   const mAxis = createXAxis('left', 'Men');
@@ -185,7 +186,7 @@ function createGraphic(container) {
       })
       .transition()
       .duration(duration)
-      .style('transform', d => `translateY(${yScale(d.under + 1)}px)`)
+      .style('transform', d => `translateY(${yScale(d.age + 2)}px)`)
       .each(function() {
         const sel = select(this);
 
@@ -207,8 +208,11 @@ function createGraphic(container) {
       .append('g')
       .attr('class', 'bar-group')
       .each(function(d) {
+        const translateY = `translateY(${yScale(d.age+1)}px)`;
+
         const sel = select(this)
-          .classed('chosen', d => d.yob === chosenYob);
+          .classed('chosen', d => d.yob === chosenYob)
+          .style('transform', translateY);
 
         sel.selectAll('g.gender')
           .data(['males', 'females'])
@@ -237,7 +241,8 @@ function createGraphic(container) {
           .append('g')
           .datum(d)
           .attr('class', d.yobClass)
-          .classed('chosen', d => d.yob === chosenYob);
+          .classed('chosen', d => d.yob === chosenYob)
+          .style('transform', translateY);
 
         yobLabels.append('g')
           .attr('class', 'left')
@@ -305,13 +310,19 @@ function createGraphic(container) {
         const values = { males: d.m, females: d.f, min: Math.min(d.m, d.f) };
         const mScale = mAxis.scale;
         const fScale = fAxis.scale;
-        const translateY = `translateY(${yScale(d.under)}px)`;
+        const translateY = `translateY(${yScale(d.age+1)}px)`;
 
-        sel.style('transform', translateY);
+        sel.transition()
+          .duration(duration)
+          .style('transform', translateY);
 
-        gYobLabels.select(`.labels-${d.yob}`)
-          .style('transform', translateY)
-          .select('.right text')
+        const yobLabels = gYobLabels.select(`.labels-${d.yob}`);
+
+        yobLabels.transition()
+          .duration(duration)
+          .style('transform', translateY);
+
+        yobLabels.select('.right text')
           .text(`${format(',')(Math.round(d.m + d.f))} people`);
       
         sel.selectAll('g.males rect')
@@ -352,8 +363,8 @@ function createGraphic(container) {
 
       lineGroups.merge(lineGroupsEnter)
         .each(function({xScale, data}) {
-          const pointsString = data.map(function({total, under}) {
-            return [xScale(total), yScale(under)].join(',');
+          const pointsString = data.map(function({total, age}) {
+            return [xScale(total), yScale(age)].join(',');
           }).join(' ');
 
           select(this)

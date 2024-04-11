@@ -28,7 +28,7 @@ function createMiniGraphic(container) {
     .attr('viewBox', `0 0 ${width} ${height}`);
 
   const yScale = scaleLinear()
-    .domain([0, 100])
+    .domain([0, 101])
     .range([height - margins.bottom, margins.top]);
 
   const halfWidth = (width - (margins.left + margins.xMidWidth + margins.right)) / 2;
@@ -61,8 +61,8 @@ function createMiniGraphic(container) {
           .range(d.range)
           .nice();
 
-        const points = d.data.map(function({ total, under }) {
-          return [xScale(total), yScale(under)].join(',');
+        const points = d.data.map(function({ total, age }) {
+          return [xScale(total), yScale(age)].join(',');
         }).join(' ');
 
         select(this)
@@ -74,7 +74,7 @@ function createMiniGraphic(container) {
       .attr('text-anchor', 'middle')
       .text(refYear);
 
-    if (getData('year').variant !== 0) {
+    if (getData('year').variant !== 'v0') {
       addGroup(svg, 'assumptions')
         .append('text')
         .attr('text-anchor', 'middle')

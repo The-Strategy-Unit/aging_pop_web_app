@@ -63,7 +63,7 @@ function createAppState(container) {
   };
 
   const setVariantData = function() {
-    data.variant = data.horizon.filter(d => `v${d.proj_id}` === state.variant);
+    data.variant = data.horizon.filter(d => d.variant === state.variant);
     trigger('variantdatachange');
   };
 
