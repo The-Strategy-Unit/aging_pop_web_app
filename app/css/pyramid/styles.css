@@ -57,12 +57,12 @@ input[type="range"]::-webkit-slider-runnable-track {
   background-color: transparent;
 }
 
-#pyramid datalist {
+/* #pyramid datalist {
   display: flex;
   flex-direction: column-reverse;
   justify-content: space-between;
   font-size: 0.8em;
-}
+} */
 
 #pyramid table {
   border-collapse: collapse;

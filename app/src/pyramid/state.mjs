@@ -51,7 +51,7 @@ function createAppState(container) {
       .map(function(d) {
         const { year, data } = d;
         return data.reduce(function(max, d) {
-          d.yob = year - (d.under - 1);
+          d.yob = year - d.age;
           d.yobClass = `labels-${d.yob}`;
           return Math.max(max, d.m, d.f);
         }, 0);
@@ -64,7 +64,7 @@ function createAppState(container) {
   
   const setVariantData = function() {
     const vOptions = ['v0', state.variant];
-    data.variant = data.area.filter(d => vOptions.includes(`v${d.variant}`));
+    data.variant = data.area.filter(d => vOptions.includes(d.variant));
 
     const code = variants[state.variant].short;
     const parts = code.match(/(B|L|M)\d/g);
@@ -93,8 +93,8 @@ function createAppState(container) {
         .forEach(function(d) {
           for(const key of ['m', 'f']) {
             const arr = data.refYear[key];
-            arr.push({ under: d.under - 1, total: d[key] });
-            arr.push({ under: d.under, total: d[key] });
+            arr.push({ age: d.age, total: d[key] });
+            arr.push({ age: d.age + 1, total: d[key] });
           }
         });
     }

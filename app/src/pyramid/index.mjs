@@ -55,7 +55,7 @@ function yearDataChange(evt) {
   const dependencyRatios = dataContainer.select('.dependency-ratios');
 
   const name = getData('name');
-  const variant = `v${getData('year').variant}`;
+  const variant = getData('year').variant;
   container.classed('v0', variant === 'v0');
 
   let hText, pText;
@@ -114,8 +114,8 @@ function initPyramid(container) {
   const initialSelectValues = initSelectMenus(controlsContainer, setState);
 
   const yearSlider = sliderContainer.select('input[type="range"]')
-    .attr('min', 2010)
-    .attr('max', 2050)
+    .attr('min', 2018)
+    .attr('max', 2043)
     .attr('step', 1)
     .attr('value', 2022)
     .on('input', evt => setState({ 'year': evt.target.value }));

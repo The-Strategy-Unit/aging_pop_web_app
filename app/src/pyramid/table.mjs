@@ -3,9 +3,9 @@ import { getData } from './state.mjs';
 
 function getTableData() {
   const bins = [
-    { name: '<18' , accept: d => d.under <= 18, count: 0 },
-    { name: '18—64' , accept: d => d.under > 18 && d.under <= 65, count: 0 },
-    { name: '65+' , accept: d => d.under > 65, count: 0 },
+    { name: '<18' , accept: d => d.age < 18, count: 0 },
+    { name: '18—64' , accept: d => d.age > 18 && d.age < 65, count: 0 },
+    { name: '65+' , accept: d => d.age >= 65, count: 0 },
   ];
 
   const { data, totals } = getData('year');

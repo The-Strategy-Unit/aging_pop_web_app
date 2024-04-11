@@ -15,12 +15,6 @@ async function initLookup() {
     obj.histogramsFile = `histograms/${code}`;
     return obj;
   })
-    .sort(function(a, b) {
-      if (a.entity !== b.entity) {
-        return a.entity === 'nation' ? -1 : 1;
-      }
-      return a.name.localeCompare(b.name);
-    })
     .forEach(function(d) {
       lookup.set(d.code, d);
     });
