@@ -1,23 +1,31 @@
 #pyramid {
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-#pyramid > .titles-container {
+#pyramid .pyramid-content {
+  display: grid;
+  width: 1200px;
+  max-width: 95vw;
+}
+
+#pyramid .titles-container {
   grid-area: titles;
 }
 
-#pyramid > .controls-container {
+#pyramid .controls-container {
   grid-area: controls;
 }
 
-#pyramid > .graphic-container {
+#pyramid .graphic-container {
   grid-area: graphic;
   position: relative;
   align-self: center;
   width: 100%;
 }
 
-#pyramid > .slider-container {
+#pyramid .slider-container {
   grid-area: slider;
   display: flex;
   align-items: stretch;
@@ -25,7 +33,7 @@
   padding-right: 2em;
 }
 
-#pyramid > .data-container {
+#pyramid .data-container {
   grid-area: data;
   position: relative;
 }
@@ -38,7 +46,7 @@
   margin: 0;
 }
 
-#pyramid > .titles-container p:empty::before {
+#pyramid .titles-container p:empty::before {
   content:"";
   display: inline-block;
 }
@@ -371,7 +379,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 
 
 @media (min-width: 1000px) {
-  #pyramid {
+  #pyramid .pyramid-content {
     grid-template-columns: 4fr auto 3fr;
     grid-template-rows: auto 100px auto;
     column-gap: 1em;
@@ -417,7 +425,9 @@ input[type="range"]::-webkit-slider-runnable-track {
 
 
 @media not (min-width: 1000px) {
-  #pyramid {
+  #pyramid .pyramid-content {
+    width: 100%;
+    max-width: unset;
     padding-bottom: 1em;
     grid-template-columns: 1fr auto;
     column-gap: 2em;
@@ -429,7 +439,7 @@ input[type="range"]::-webkit-slider-runnable-track {
       "data data";
   }
 
-  #pyramid > .slider-container {
+  #pyramid .slider-container {
     justify-self: right;
   }
 
@@ -475,7 +485,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 
 
 @media (max-width: 700px) {
-  #pyramid > .controls-container {
+  #pyramid .controls-container {
     flex-direction: column;
   }
 
