@@ -3,6 +3,8 @@ import { load } from './load.mjs';
 const lookup = new Map();
 
 
+// Create a lookup from area code to
+// name and associated data files
 async function initLookup() {
   const data = await load('codes');
 

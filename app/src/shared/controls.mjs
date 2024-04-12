@@ -1,3 +1,6 @@
+// Most of the code here is concerned with the cutom area dropdown
+// But the final, exported function also initiates the regular
+// select menus 
 import { select } from 'd3-selection';
 import { lookup } from './lookup.mjs';
 import { variants } from '../shared/variants.mjs';

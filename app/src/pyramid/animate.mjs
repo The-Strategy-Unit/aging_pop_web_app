@@ -1,3 +1,7 @@
+// This function is a simple wrapper around
+// the built in window.requestAnimationFrame
+// that makes running the pyramid animations
+// a little simpler
 function startAnimation(callback) {
   let t0 = null;
 

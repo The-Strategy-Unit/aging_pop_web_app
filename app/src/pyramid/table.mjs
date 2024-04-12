@@ -1,6 +1,8 @@
 import { getData } from './state.mjs';
 
-
+// This function gets the data (and totals) information from the
+// computed year object and then bins that data. This can then be
+// used in the assosciated table and dependency ratio calculations
 function getTableData() {
   const bins = [
     { name: '<18' , accept: d => d.age < 18, count: 0 },

@@ -4,7 +4,8 @@ import { getState, getData } from './state.mjs';
 import { createGetCssVariable } from '../shared/css.mjs';
 import { addGroup, addGroups } from '../shared/svg.mjs';
 
-
+// This function creates the mini pyramid seen in the top left-hand
+// corner of the pyramid when "Lock age structure" is turned on.
 function createMiniGraphic(container) {
   const graphicContainer = container.select('.graphic-container');
   const miniContainer = graphicContainer.select('.mini-graphic');
