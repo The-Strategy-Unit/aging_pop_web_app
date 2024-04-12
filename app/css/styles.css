@@ -19,7 +19,7 @@ body {
 }
 
 main {
-  width: 1200px;
+  width: 900px;
   max-width: 95%;
   margin: 0 auto;
 }
@@ -193,8 +193,6 @@ input[type="checkbox"]:checked::before {
   transform: translateY(3px);
   opacity: 0.5;
 }
-
-
 
 @media (max-width: 830px) {
   .dropdowns {
