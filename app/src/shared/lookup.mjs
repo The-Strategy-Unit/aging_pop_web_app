@@ -11,7 +11,6 @@ async function initLookup() {
   data.map(function(d) {
     const { code, name } = d;
     const obj = { code, name };
-    obj.entity = d.entity || 'local authority';
     obj.pyramidFile = `pyramid/${code}`;
     obj.lineChartsFile = `line-charts/${code}`;
     obj.histogramsFile = `histograms/${code}`;
