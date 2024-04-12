@@ -1,3 +1,5 @@
+// Functions to make adding groups to SVGs a little easier
+
 function addGroup(container, className) {
   return container.append('g').attr('class', className);
 }

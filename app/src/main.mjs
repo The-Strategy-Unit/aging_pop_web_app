@@ -7,11 +7,13 @@ import { initHistograms } from './histograms/index.mjs';
 
 
 async function main() {
+  // Asynchronously load the json files from root of data/ into memory
   await Promise.all([initLookup(), initVariants()]);
+  // Initialise our charts in order
   initPyramid(select('#pyramid'));
   initLineCharts(select('#line-charts'));
   initHistograms(select('#histograms'));
 }
 
-
+// Actually set things going!
 main();

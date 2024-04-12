@@ -1,3 +1,5 @@
+// Wrapper function for making it easier to extract CSS variables
+// into JavaScript code
 function createGetCssVariable(container) {
   const el = container.node();
 

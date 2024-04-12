@@ -1,3 +1,5 @@
+// Useful functions used in subapplication state.mjs files
+
 const defaultConverter = v => v === null ? '' : v;
 
 
