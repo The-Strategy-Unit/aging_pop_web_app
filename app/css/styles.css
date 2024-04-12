@@ -49,7 +49,7 @@ section {
   margin-bottom: 5em;
 }
 
-select, [role="listbox"], .area-select ul {
+select, .area-select input, .area-select ul {
   width: 175px;
   min-height: 25px;
 }
@@ -73,6 +73,8 @@ select, [role="listbox"], .area-select ul {
   background-color: rgba(255,255,255,0.7);
   backdrop-filter: blur(2px);
   font-size: 0.8em;
+  height: 200px;
+  overflow: auto;
 }
 
 .area-select.open ul {
@@ -80,6 +82,7 @@ select, [role="listbox"], .area-select ul {
 }
 
 .area-select li {
+  flex: 0 0 auto;
   list-style: none;
   overflow: hidden;
   text-wrap: nowrap;

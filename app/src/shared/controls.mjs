@@ -36,8 +36,7 @@ function initAreaSelect(container, setState) {
   const ulId = `pyramid-select-${suffix}`;
 
   const input = container.select('input')
-    .attr('aria-controls', ulId)
-    .attr('role', 'listbox');
+    .attr('aria-controls', ulId);
 
   const ul = container.select('ul')
     .attr('id', ulId);
@@ -64,7 +63,6 @@ function initAreaSelect(container, setState) {
     .append('li')
     .attr('data-index', (_, i) => i)
     .attr('tabIndex', -1)
-    .attr('role', 'option')
     .text(d => d.name)
     .on('mouseover focus', function() {
       const index = parseInt(this.dataset.index);
@@ -81,6 +79,7 @@ function initAreaSelect(container, setState) {
     const stayOpen = relatedTarget === input.node || liNodes.includes(relatedTarget);
     if (!stayOpen) {
       close();
+      changeCallback();
     }
   });
 
@@ -102,7 +101,7 @@ function initAreaSelect(container, setState) {
       }
       else if (key === 'ArrowDown') {
         if (!isOpen()) { open(); }
-        else { liNodes[0].focus(); }
+        else { li.filter('.best-match').node().focus(); }
       }
       return;
     }
@@ -124,7 +123,15 @@ function initAreaSelect(container, setState) {
 
   const updateBestMatch = function(index) {
     if (index === undefined) { index = bestMatch(input.property('value')); }
-    li.each(function(_, i) { select(this).classed('best-match', i === index); });
+    const oldBestMatch = select('.best-match');
+    const chosen = select(liNodes[index]); 
+    const isNewMatch = oldBestMatch.node() !== chosen.node();
+
+    if (isNewMatch) {
+      li.classed('best-match', (_, i) => i === index);
+    }
+    
+    return { chosen, isNewMatch, index };
   };
 
   const chooseBestMatch = function() {
@@ -146,15 +153,17 @@ function initAreaSelect(container, setState) {
 
   input
     .on('focus', open)
-    .on('blur', function({relatedTarget}) { if (!liNodes.includes(relatedTarget)) { close(); } } )
+    .on('blur', function({relatedTarget}) {
+      if (!liNodes.includes(relatedTarget)) { close(); }
+    })
     .on('click', open)
-    .on('input', function() { updateBestMatch(); open(); })
-    .on('change', changeCallback);
-
-  // window.addEventListener('keydown', function(evt) {
-  //   const key = evt.key;
-  //   const target = li.filter('.best-match').node();
-  //   if (!liNodes.includes(target)) { return; }
+    .on('input', function() {
+      open();
+      const { chosen, isNewMatch } = updateBestMatch();
+      if (isNewMatch) {
+        ul.node().scrollTop = chosen.node().offsetTop;
+      }
+    });
   
   return input.attr('data-code');
 }
