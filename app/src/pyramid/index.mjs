@@ -120,7 +120,7 @@ function initPyramid(container) {
 
   // Hard coded years. urgh
   const yearSlider = sliderContainer.select('input[type="range"]')
-    .attr('min', 2018)
+    .attr('min', 2000)
     .attr('max', 2043)
     .attr('step', 1)
     .attr('value', 2022)
