@@ -180,7 +180,7 @@ function createGraphic(container) {
     const year = getState('year');
     bigYear.text(year);
     // To animate or not to animate
-    const duration = getState('animating') ? constants.tickTime : 0;
+    const duration = getState('animating') ? constants.animationDuration : 0;
     mAxis.update(getData('max'));
     fAxis.update(getData('max'));
 
