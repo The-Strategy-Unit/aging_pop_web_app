@@ -1,9 +1,13 @@
 // Most of the code here is concerned with the cutom area dropdown
-// But the final, exported function also initiates the regular
-// select menus 
+// But the final, exported function - initSelectMenus - also
+// initiates the regular select menus.
+// initYearSlider initialises the year slider for the pyramid.
 import { select } from 'd3-selection';
+import { ticks as d3Ticks } from 'd3-array';
+import { scaleLinear } from 'd3-scale';
 import { lookup } from './lookup.mjs';
 import { variants } from '../shared/variants.mjs';
+import { constants } from './constants.mjs';
 
 
 function createBestMatch(rawValues) {
@@ -246,4 +250,41 @@ function initSelectMenus(container, setState) {
 }
 
 
-export { initSelectMenus };
+function initYearSlider(container, setState) {
+  const min = constants.minYear;
+  const max = constants.maxYear;
+  const initialValue = constants.initialYear;
+  const ticks = d3Ticks(min, max, Math.floor((max-min))/5); 
+
+  container.select('input[type="range"]')
+    .attr('min', min)
+    .attr('max', max)
+    .attr('step', 1)
+    .attr('value', initialValue)
+    .on('input', evt => setState({ 'year': evt.target.value }));
+
+  container.select('datalist')
+    .selectAll('option')
+    .data(ticks)
+    .enter()
+    .append('option')
+    .attr('value', d => d.value);
+
+  const yScale = scaleLinear()
+    .domain([min, max])
+    .range([100, 0]);
+
+  container.select('.slider-labels')
+    .selectAll('span.label')
+    .data(ticks)
+    .enter()
+    .append('span')
+    .attr('class', 'label')
+    .style('transform', d => `translateY(calc(${yScale(d)}cqh - 0.05em))`)
+    .text(d => d);
+
+  return initialValue;
+}
+
+
+export { initSelectMenus, initYearSlider };

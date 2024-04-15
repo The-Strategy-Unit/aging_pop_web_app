@@ -8,6 +8,9 @@ const constants = {
   isProd,
   dataFilePrefix: '/data/',
   dataFileSuffix: `.json${isProd ? zipExtension : ''}`,
+  minYear: 2000,
+  maxYear: 2043,
+  initialYear: 2022,
   tickTime: 1000,
 };
 
