@@ -26,11 +26,36 @@
 }
 
 #pyramid .slider-container {
+  position: relative;
   grid-area: slider;
   display: flex;
   align-items: stretch;
   justify-content: left;
   padding-right: 2em;
+}
+
+#pyramid .slider-container .slider-labels {
+  visibility: hidden;
+  width: 4em;
+}
+
+@supports (container-type: size) {
+  #pyramid .slider-container .slider-labels {
+    visibility: visible;
+    position: relative;
+    container-type: size;
+    pointer-events: none;
+    --defaultThumbHeight: 16px;
+    padding: calc(var(--defaultThumbHeight)/2) 0 calc(var(--defaultThumbHeight)/2) 0; /*Half thumb gap at top and bottom*/
+  }
+}
+
+
+#pyramid .slider-container .slider-labels .label {
+  position: absolute;
+  left: 3px;
+  top: 0;
+  font-size: 0.8em;
 }
 
 #pyramid .data-container {

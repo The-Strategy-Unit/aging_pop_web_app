@@ -8,7 +8,7 @@ import { createGraphic } from './graphics.mjs';
 import { getTableData } from './table.mjs';
 import { startAnimation } from './animate.mjs';
 import { createMiniGraphic } from './mini-graphic.mjs';
-import { initSelectMenus } from '../shared/controls.mjs';
+import { initSelectMenus, initYearSlider } from '../shared/controls.mjs';
 import { getDataFileUrl } from '../shared/data-files.mjs';
 
 
@@ -119,12 +119,8 @@ function initPyramid(container) {
   const initialSelectValues = initSelectMenus(controlsContainer, setState);
 
   // Hard coded years. urgh
-  const yearSlider = sliderContainer.select('input[type="range"]')
-    .attr('min', 2000)
-    .attr('max', 2043)
-    .attr('step', 1)
-    .attr('value', 2022)
-    .on('input', evt => setState({ 'year': evt.target.value }));
+  const initialYearSliderValue = initYearSlider(sliderContainer, setState);
+  const yearSlider = sliderContainer.select('input[type="range"]');
 
   controlsContainer.select('input[type=checkbox]')
     .on('change', function(evt) {
@@ -200,7 +196,7 @@ function initPyramid(container) {
   // Set how we want the sub-application to look on load
   const initialState = combineObjects(
     initialSelectValues,
-    { year: yearSlider.node().value, refYear: null, animating: false }
+    { year: initialYearSliderValue, refYear: null, animating: false }
   );
   setState(initialState);
 }
