@@ -74,7 +74,7 @@ function createGraphic(container) {
     gTopText.append('text')
       .attr('class', 'main-title')
       .attr('dominant-baseline', 'hanging')
-      .text(data.hsagrp_lab);
+      .text(data.label);
 
     gTopText.append('text')
       .attr('class', 'sub')
@@ -241,7 +241,7 @@ function createGraphic(container) {
 
   return function updateGraphic() {
     const data = getData('variant');
-    const keyFunction = d => `${d.pod}-${d.hsagrp_lab}`;
+    const keyFunction = d => `${d.pod}-${d.label}`;
     updateSmallMultiples(data, keyFunction);
   };
 }
