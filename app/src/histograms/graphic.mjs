@@ -9,7 +9,7 @@ import { createSmallMultiplesFramework } from '../shared/small-multiples.mjs';
 import { addGroup, addGroups } from '../shared/svg.mjs';
 import { constants } from '../shared/constants.mjs';
 
-const duration = constants.tickTime;
+const duration = constants.animationDuration;
 
 
 function getXDomain(data) {

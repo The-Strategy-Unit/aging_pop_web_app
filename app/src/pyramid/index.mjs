@@ -160,7 +160,7 @@ function initPyramid(container) {
     // until animation state is changed to false
     return function(dt) {
       if (!getState('animating')) { return true; }
-      const count = Math.floor(dt / constants.tickTime); // count number of steps taken
+      const count = Math.floor(dt / constants.animationDuration); // count number of steps taken
       const position = (startPosition + count) % n; // work out where slider needs to be
       const year = first + position; // work out what year that corresponds to
       yearSlider.node().value = year; // update slider

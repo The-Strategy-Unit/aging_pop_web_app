@@ -13,7 +13,7 @@ import { addGroup, addGroups } from '../shared/svg.mjs';
 
 const formatter = format(',');
 const xDomain = [0, 100];
-const duration = constants.tickTime;
+const duration = constants.animationDuration;
 
 
 const generateLineData = function(data, gender) {

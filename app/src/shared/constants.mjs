@@ -11,7 +11,7 @@ const constants = {
   minYear: 2000,
   maxYear: 2043,
   initialYear: 2022,
-  tickTime: 1000,
+  animationDuration: 1000,
 };
 
 export { constants };
