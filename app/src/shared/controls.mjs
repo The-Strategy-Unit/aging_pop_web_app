@@ -70,10 +70,25 @@ function initAreaSelect(container, setState) {
     .append('li')
     .attr('data-index', (_, i) => i)
     .attr('tabIndex', -1)
-    .text(d => d.name)
+    .each(function() {
+      select(this).append('span').text(d => d.name);
+    })
     .on('mouseover focus', function() {
       const index = parseInt(this.dataset.index);
       updateBestMatch(index);
+      // Work out whether the text is long and needs to scroll
+      const ulWidth = this.parentElement.clientWidth;
+      const spanEl = this.children[0]; 
+      const spanWidth = spanEl.offsetWidth;
+      const diff = Math.max(0, (spanWidth - ulWidth));
+      if (diff) {
+        // Scroll the text
+        select(spanEl).style('transform', `translateX(-${diff + 8}px)`);
+      }
+    })
+    .on('mouseout blur', function() {
+      // Unscroll any scrolled text
+      select(this.children[0]).style('transform', '');
     })
     .on('mousedown', function() {
       input.node().focus();

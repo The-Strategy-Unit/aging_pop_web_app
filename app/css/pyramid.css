@@ -426,7 +426,7 @@ input[type="range"]::-webkit-slider-runnable-track {
   }
 
   #pyramid .controls-container .dropdowns,
-  #pyramid .controls-container .dropdowns :where(label, span, select span::after),
+  #pyramid .controls-container .dropdowns :where(label, label > span, select span::after),
   #pyramid .controls-container .dropdowns span::after {
     all: unset;
   }
