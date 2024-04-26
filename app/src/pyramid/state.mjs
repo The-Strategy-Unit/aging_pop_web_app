@@ -113,6 +113,8 @@ function createAppState(container) {
     setYearData();
     // If a refYear is shown we also need to update that
     if (state.refYear !== null) { setRefYearData(); }
+    // Stop any running animation when we change variant (or area) data
+    setState({ animating: false });
   };
   
   const setYearData = function() {
