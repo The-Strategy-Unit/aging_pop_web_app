@@ -75,6 +75,7 @@ select, .area-select input, .area-select ul {
   font-size: 0.8em;
   height: 200px;
   overflow: auto;
+  overflow-x: hidden;
 }
 
 .area-select.open ul {
@@ -82,6 +83,7 @@ select, .area-select input, .area-select ul {
 }
 
 .area-select li {
+  display: block;
   flex: 0 0 auto;
   list-style: none;
   overflow: hidden;
@@ -93,8 +95,22 @@ select, .area-select input, .area-select ul {
   cursor: pointer;
 }
 
+.area-select li span {
+  transition: transform 2s;
+  display: block;
+}
+
 .area-select li:focus {
   outline: 3px solid purple;
+}
+
+.area-select :is(li:hover, li:focus)  {
+  text-overflow: unset;
+  min-width: fit-content;
+}
+
+.area-select :is(li:hover, li:focus) span {
+  min-width: fit-content;
 }
 
 .area-select li.best-match {
