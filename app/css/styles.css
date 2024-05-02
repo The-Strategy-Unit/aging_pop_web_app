@@ -44,6 +44,55 @@ p {
   max-width: 80ch;
 }
 
+/* start header */
+.main-header {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 2001;
+}
+
+.navbar {
+  display: flex;
+}
+
+.navbar-content {
+  display: flex;
+  width: 1000px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.home-page-grp {
+  line-height: 1;
+}
+
+#home-page {
+  color: #313738;
+  border: 0;
+  font-weight: 700;
+}
+
+.right-grp {
+  display: flex;
+}
+
+.right-grp a {
+  display: flex;
+  border: 0;
+}
+
+.header-su-logo {
+  width: 90px;
+  height: 90px;
+}
+/* end header */
+
 section {
   margin-bottom: 5em;
 }
