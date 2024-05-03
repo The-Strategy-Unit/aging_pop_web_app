@@ -29,16 +29,16 @@ h1 {
   padding-bottom: 1em;
 }
 
-a {
+/* a {
   color: #2C74B5;
   text-decoration: none;
   border-top: 2px solid transparent;
   border-bottom: 2px solid currentColor;
-}
+} */
 
-a:hover {
+/* a:hover {
   border-top-color: currentColor;
-}
+} */
 
 p {
   max-width: 80ch;
