@@ -6,7 +6,7 @@ const isProd = document.documentElement.dataset.environment === 'prod';
 
 const constants = {
   isProd,
-  dataFilePrefix: '/data/',
+  dataFilePrefix: './data/',
   dataFileSuffix: `.json${isProd ? zipExtension : ''}`,
   minYear: 2000,
   maxYear: 2043,
