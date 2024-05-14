@@ -24,24 +24,42 @@ main {
 }
 
 h1 {
-  text-align: center;
-  margin: 0;
-  padding-bottom: 1em;
+  font-family: 'Open Sans';
+  font-weight: 800;
+  font-size: 36px;
+  color: #111314;
+  padding-left: 8%;
+  padding-right: 8%;
 }
 
-a {
-  color: #2C74B5;
-  text-decoration: none;
-  border-top: 2px solid transparent;
-  border-bottom: 2px solid currentColor;
-}
-
-a:hover {
-  border-top-color: currentColor;
+h2 {
+  font-family: 'Open Sans';
+  font-size: 26px;
+  padding-left: 8%;
+  padding-right: 8%;
 }
 
 p {
   max-width: 80ch;
+}
+
+.narrative {
+  line-height: 1.35em;
+  font-size: 22px;
+  font-family: Gelasio;
+  color: #3d4446;
+  padding-left: 8%;
+  padding-right: 8%;
+}
+
+a {
+  border-top: none;
+  color: #2c74b5;
+}
+
+a:hover {
+  border-top: none;
+  color: #6b9dcb;
 }
 
 /* start header */
