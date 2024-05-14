@@ -15,7 +15,9 @@
     "lint:fix": "npx eslint@8 . --ext .mjs --fix --max-warnings=0",
     "serve": "lite-server",
     "start": "npm run roll:dev && npm run serve & npm run watch",
-    "watch": "nodemon --ext mjs,html,json,css --exec npm run roll:dev"
+    "watch": "nodemon --ext mjs,html,json,css --exec npm run roll:dev",
+    "predeploy": "npm run dist",
+    "deploy": "gh-pages -d dist"
   },
   "lint-staged": {
     "*.mjs": "npm run lint"
@@ -25,11 +27,12 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
-    "rollup-plugin-string": "^3.0.0",
     "@rollup/plugin-terser": "^0.4.4",
     "clean-css-cli": "^5.6.3",
+    "gh-pages": "^6.1.1",
     "lite-server": "^2.6.1",
-    "rollup": "^4.13.0"
+    "rollup": "^4.13.0",
+    "rollup-plugin-string": "^3.0.0"
   },
   "dependencies": {
     "d3-array": "^3.2.4",
