@@ -415,8 +415,8 @@ input[type="range"]::-webkit-slider-runnable-track {
   }
 
   #pyramid .links {
-    flex-direction: row;
-    column-gap: 4em;
+    flex-direction: column;
+    row-gap: 1em;
     margin-top: 2em;
   }
 

@@ -62,6 +62,24 @@ a:hover {
   color: #6b9dcb;
 }
 
+/* download button */
+.download-btn { 
+  align-items: center;
+  border-radius: 4px;
+  background: #f7bb3c;
+  border: 2px solid #f7bb3c;
+  color: #111314 !important;
+  height: 100%;
+  font-weight: 500;
+  padding: 12px;
+  float: left;
+  display: flex;
+}
+
+.download-btn:hover {
+  background: #fff;
+}
+
 /* start header */
 .main-header {
   display: flex;
