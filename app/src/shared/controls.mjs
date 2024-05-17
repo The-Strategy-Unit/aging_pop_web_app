@@ -7,6 +7,7 @@ import { ticks as d3Ticks } from 'd3-array';
 import { scaleLinear } from 'd3-scale';
 import { lookup } from './lookup.mjs';
 import { variants } from '../shared/variants.mjs';
+import { pods } from '../shared/pods.mjs';
 import { constants } from './constants.mjs';
 
 
@@ -192,16 +193,15 @@ function initAreaSelect(container, setState) {
 
 
 function initPodSelect(dropdown, setState) {
-  const pods = ['aae', 'apc', 'opc'];
   const callback = evt => setState({ 'pod': evt.target.value });
-  dropdown.on('change', callback);
+  const podSelect = dropdown.on('change', callback);
 
-  dropdown.selectAll('option')  
-    .data(pods)
+  podSelect.selectAll('option')  
+    .data(Array.from(Object.entries(pods)))
     .enter()
     .append('option')
-    .attr('value', d => d)
-    .text(d => d);
+    .attr('value', d => d[0])
+    .text(d => d[1].name);
 
   return dropdown.node().value;
 }
