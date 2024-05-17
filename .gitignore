@@ -6,3 +6,4 @@ node_modules/
 *.min.css
 *.json
 *.json.gz
+issues_log.md
