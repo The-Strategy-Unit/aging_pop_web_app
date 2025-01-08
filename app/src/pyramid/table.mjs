@@ -5,8 +5,8 @@ import { getData } from './state.mjs';
 // used in the assosciated table and dependency ratio calculations
 function getTableData() {
   const bins = [
-    { name: '<18' , accept: d => d.age < 18, count: 0 },
-    { name: '18—64' , accept: d => d.age > 18 && d.age < 65, count: 0 },
+    { name: 'under 18' , accept: d => d.age < 18, count: 0 },
+    { name: '18–64' , accept: d => d.age > 18 && d.age < 65, count: 0 },
     { name: '65+' , accept: d => d.age >= 65, count: 0 },
   ];
 

@@ -87,10 +87,63 @@ input[type="range"]::-webkit-slider-runnable-track {
   background-color: transparent;
 }
 
+/*---------------------------------------------------------------------------*/
+/* table age structure */
+/*---------------------------------------------------------------------------*/
 #pyramid table {
+  table-layout: fixed;
+  width: 80%;
   border-collapse: collapse;
+  margin-bottom: 2em;
+}
+
+/* set column widths */
+#pyramid thead th:nth-child(1) {
+  width: 25%;
+}
+
+#pyramid thead th:nth-child(2) {
+  width: 25%;
+}
+
+#pyramid thead th:nth-child(3) {
+  width: 20%;
+}
+
+#pyramid :where(th, td) {
+  padding: 4px;
+}
+
+#pyramid th {
+  font-weight: normal;
+}
+
+#pyramid thead th {
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
+  color: #666666;
+  font-weight: 600;
+}
+
+#pyramid tfoot :where(th, td) {
+  border-top: 1px solid black;
+}
+
+#pyramid td {
   text-align: right;
-  margin-bottom: 1em;
+}
+
+#pyramid th {
+  text-align: left;
+}
+
+/* right align column headers for cols 2 & 3 */
+#pyramid thead th:nth-child(2) {
+  text-align: right;
+}
+
+#pyramid thead th:nth-child(3) {
+  text-align: right;
 }
 
 #pyramid dl {
@@ -115,30 +168,6 @@ input[type="range"]::-webkit-slider-runnable-track {
   display: block;
 }
 
-#pyramid thead th {
-  border-bottom: 1px solid black;
-}
-
-#pyramid tfoot :where(th, td) {
-  border-top: 1px solid black;
-}
-
-:where(thead, tfoot) th {
-  text-align: left;
-}
-
-#pyramid th {
-  font-weight: normal;
-}
-
-#pyramid :where(th, td) {
-  width: 80px;
-}
-
-#pyramid :where(th, td):not(:last-child)  {
-  border-right: 0.7em solid transparent;
-}
-
 #pyramid .dependency-ratios {
   display: flex;
   flex-direction: column;
@@ -149,11 +178,12 @@ input[type="range"]::-webkit-slider-runnable-track {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 280px;
+  max-width: 400px;
 }
 
 #pyramid .dependency-ratios p {
   margin: 0;
+  font-size: 0.8em;
 }
 
 #pyramid .mini-graphic {

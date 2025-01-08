@@ -11,6 +11,10 @@ import { createMiniGraphic } from './mini-graphic.mjs';
 import { initSelectMenus, initYearSlider } from '../shared/controls.mjs';
 import { getDataFileUrl } from '../shared/data-files.mjs';
 
+// Function to add commas to numbers
+function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
 
 // Function to run when area data changes
 // This just updates what is downloaded via the download link
@@ -81,7 +85,7 @@ function yearDataChange(evt) {
 
   tbody
     .selectAll('tr')
-    .data(tableData.bins.slice().reverse())
+    .data(tableData.bins.slice())
     .enter()
     .append('tr')
     .each(function(d) {
@@ -89,7 +93,7 @@ function yearDataChange(evt) {
         .text(d.name);
 
       select(this).selectAll('td')
-        .data([(d.count/1000).toFixed(1), `${Math.round(d.pct)}%`])
+        .data([numberWithCommas(Math.round(d.count)), `${Math.round(d.pct)}%`])
         .enter()
         .append('td')
         .text(d => d);
@@ -97,7 +101,7 @@ function yearDataChange(evt) {
 
   table
     .selectAll('tfoot td')
-    .data([(tableData.total/1000).toFixed(1), '100%'])
+    .data([numberWithCommas(Math.round(tableData.total)), '100%'])
     .text(d => d);
 
   dependencyRatios
