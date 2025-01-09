@@ -94,7 +94,7 @@ input[type="range"]::-webkit-slider-runnable-track {
   table-layout: fixed;
   width: 80%;
   border-collapse: collapse;
-  margin-bottom: 2em;
+  margin-bottom: 1em;
 }
 
 /* set column widths */
@@ -168,12 +168,18 @@ input[type="range"]::-webkit-slider-runnable-track {
   display: block;
 }
 
+/*---------------------------------------------------------------------------*/
+/* dependency ratios text */
+/*---------------------------------------------------------------------------*/
+/* a space between selectors is a descendant combinator */
 #pyramid .dependency-ratios {
   display: flex;
   flex-direction: column;
   row-gap: 0.3em;
 }
 
+/* greater than sign is a child combinator */
+/* a combinator  explains the relationship between selectors */
 #pyramid .dependency-ratios > div {
   display: flex;
   justify-content: space-between;
@@ -182,8 +188,22 @@ input[type="range"]::-webkit-slider-runnable-track {
 }
 
 #pyramid .dependency-ratios p {
-  margin: 0;
-  font-size: 0.8em;
+  margin: 8px 0px 4px 0px;
+}
+
+#pyramid .dependency-ratios .dr-no { 
+  border-radius: 8px;
+  background: #e0e0e0;
+  border: 4px solid #e0e0e0;
+  color: #111314 !important;
+  height: 100%;
+  font-weight: 500;
+}
+
+#pyramid .dependency-ratios .dr-def { 
+  font-size: 0.9em;
+  color: #666666;
+  margin: 0px 0px 2px 0px;
 }
 
 #pyramid .mini-graphic {
