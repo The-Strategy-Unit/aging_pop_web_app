@@ -65,15 +65,16 @@ a:hover {
 /* download button */
 .download-btn { 
   align-items: center;
-  border-radius: 4px;
+  border-radius: 6px;
   background: #f7bb3c;
   border: 2px solid #f7bb3c;
   color: #111314 !important;
   height: 100%;
-  font-weight: 500;
-  padding: 12px;
+  font-weight: normal;
+  padding: 8px;
   float: left;
   display: flex;
+  font-size: 0.9rem;
 }
 
 .download-btn:hover {

@@ -95,6 +95,7 @@ input[type="range"]::-webkit-slider-runnable-track {
   width: 80%;
   border-collapse: collapse;
   margin-bottom: 1em;
+  font-size: 0.9rem;
 }
 
 /* set column widths */
@@ -121,7 +122,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 #pyramid thead th {
   border-bottom: 1px solid black;
   border-top: 1px solid black;
-  color: #666666;
+  color: #000000;
   font-weight: 500;
 }
 
@@ -153,25 +154,29 @@ input[type="range"]::-webkit-slider-runnable-track {
   display: flex;
   flex-direction: column;
   row-gap: 0.5em;
+  font-size: 0.9rem;
+  margin-top: 0px;
+  margin-bottom: 1em;
 }
 
 #pyramid dt {
   font-weight: normal;
-  margin: 8px 0px 8px 0px;
+  margin: 0px 0px 2px 0px;
 }
 
 #pyramid .caption {
-  font-weight: 500;
+  font-weight: normal;
 }
 
 #pyramid dd {
   display: inline;
   margin-inline-start: 0;
-  border-radius: 8px;
+  /* border-radius: 8px;
   background: #e0e0e0;
-  border: 4px solid #e0e0e0;
+  border: 4px solid #e0e0e0; */
   color: #111314 !important;
   height: 100%;
+  font-weight: 500;
 }
 
 #pyramid dl > div:first-child :where(dt, dd) {
@@ -191,8 +196,13 @@ input[type="range"]::-webkit-slider-runnable-track {
 #pyramid .dependency-ratios {
   display: flex;
   flex-direction: column;
-  row-gap: 0.3em;
-  margin-bottom: 2em;
+  margin-top: 0px;
+  margin-bottom: 1em;
+  font-size: 0.9rem;
+}
+
+#pyramid .dependency-ratios .dr-space{
+  margin-bottom: 8px;
 }
 
 /* greater than sign is a child combinator */
@@ -205,21 +215,18 @@ input[type="range"]::-webkit-slider-runnable-track {
 }
 
 #pyramid .dependency-ratios p {
-  margin: 4px 0px 4px 0px;
+  margin: 0px 0px 4px 0px;
 }
 
-#pyramid .dependency-ratios .dr-no { 
-  border-radius: 8px;
-  background: #e0e0e0;
-  border: 4px solid #e0e0e0;
+#pyramid .dependency-ratios .dr-no {
   color: #111314 !important;
   height: 100%;
+  font-weight: 500;
 }
 
 #pyramid .dependency-ratios .dr-def { 
-  font-size: 0.9em;
   color: #666666;
-  margin: 0px 0px 2px 0px;
+  margin-bottom: 2px;
 }
 
 #pyramid .mini-graphic {
@@ -483,7 +490,6 @@ input[type="range"]::-webkit-slider-runnable-track {
   #pyramid .links {
     flex-direction: column;
     row-gap: 1em;
-    margin-top: 2em;
   }
 
   #pyramid .controls-container .dropdowns {
