@@ -146,6 +146,9 @@ input[type="range"]::-webkit-slider-runnable-track {
   text-align: right;
 }
 
+/*---------------------------------------------------------------------------*/
+/* variant assumptions text */
+/*---------------------------------------------------------------------------*/
 #pyramid dl {
   display: flex;
   flex-direction: column;
@@ -153,11 +156,22 @@ input[type="range"]::-webkit-slider-runnable-track {
 }
 
 #pyramid dt {
-  font-weight: bold;
+  font-weight: normal;
+  margin: 8px 0px 8px 0px;
+}
+
+#pyramid .caption {
+  font-weight: 500;
 }
 
 #pyramid dd {
+  display: inline;
   margin-inline-start: 0;
+  border-radius: 8px;
+  background: #e0e0e0;
+  border: 4px solid #e0e0e0;
+  color: #111314 !important;
+  height: 100%;
 }
 
 #pyramid dl > div:first-child :where(dt, dd) {
@@ -165,7 +179,9 @@ input[type="range"]::-webkit-slider-runnable-track {
 }
 
 #pyramid dd span {
-  display: block;
+  display: inline;
+  margin-right: 0.5em;
+
 }
 
 /*---------------------------------------------------------------------------*/
@@ -176,6 +192,7 @@ input[type="range"]::-webkit-slider-runnable-track {
   display: flex;
   flex-direction: column;
   row-gap: 0.3em;
+  margin-bottom: 2em;
 }
 
 /* greater than sign is a child combinator */
@@ -188,7 +205,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 }
 
 #pyramid .dependency-ratios p {
-  margin: 8px 0px 4px 0px;
+  margin: 4px 0px 4px 0px;
 }
 
 #pyramid .dependency-ratios .dr-no { 

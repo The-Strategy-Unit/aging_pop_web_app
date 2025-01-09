@@ -101,10 +101,12 @@ function createAppState(container) {
     data.variant = data.area.filter(d => vOptions.includes(d.variant));
 
     const code = variants[state.variant].short; // Look up the variant code (from variants.json)
+    const vName = variants[state.variant].name; // Look up the variant name (from variants.json)
+    const vNameText = `${vName} variant`;
     const parts = code.match(/(B|L|M)\d/g); // Split code into alpha-numeric parts
     // Create an array of assumptions based on the code and the alpha-numeric parts,
     // using the data from the assumptions.json file
-    data.assumptions = [code].concat(parts.map(d => assumptions[d]));
+    data.assumptions = [vNameText].concat(parts.map(d => assumptions[d]));
 
     // trigger a variantdatachange event on the container selection
     // This is how we can let other modules know the variant data has changed
