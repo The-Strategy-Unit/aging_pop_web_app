@@ -39,6 +39,13 @@ h2 {
   padding-right: 8%;
 }
 
+h3 {
+  font-family: 'Open Sans';
+  font-size: 20px;
+  padding-left: 8%;
+  padding-right: 8%;
+}
+
 p {
   max-width: 80ch;
 }
