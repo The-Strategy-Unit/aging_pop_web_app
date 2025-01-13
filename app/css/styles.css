@@ -398,7 +398,7 @@ input[type="checkbox"]:checked::before {
 .dropdowns label span {
   flex: 1 1 0;
   overflow: hidden;
-  white-space: nowrap
+  white-space: nowrap;
 }
 
 .dropdowns label span::after {
