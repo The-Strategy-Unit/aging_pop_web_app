@@ -6,7 +6,7 @@ import { getData } from './state.mjs';
 function getTableData() {
   const bins = [
     { name: 'under 18' , accept: d => d.age < 18, count: 0 },
-    { name: '18–64' , accept: d => d.age > 18 && d.age < 65, count: 0 },
+    { name: '18–64' , accept: d => d.age >= 18 && d.age < 65, count: 0 },
     { name: '65+' , accept: d => d.age >= 65, count: 0 },
   ];
 
