@@ -11,6 +11,13 @@ import { createMiniGraphic } from './mini-graphic.mjs';
 import { initSelectMenus, initYearSlider } from '../shared/controls.mjs';
 import { getDataFileUrl } from '../shared/data-files.mjs';
 
+// Function that takes precision to do rounding
+// don't confuse with Math.round
+function round(value, precision) {
+  var multiplier = Math.pow(10, precision || 0);
+  return Math.round(value * multiplier) / multiplier;
+}
+
 // Function to add commas to numbers
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -93,7 +100,7 @@ function yearDataChange(evt) {
         .text(d.name);
 
       select(this).selectAll('td')
-        .data([numberWithCommas(Math.round(d.count)), `${Math.round(d.pct)}%`])
+        .data([numberWithCommas(Math.round(d.count)), `${round(d.pct, 1).toFixed(1)}%`])
         .enter()
         .append('td')
         .text(d => d);
@@ -101,13 +108,13 @@ function yearDataChange(evt) {
 
   table
     .selectAll('tfoot td')
-    .data([numberWithCommas(Math.round(tableData.total)), '100%'])
+    .data([numberWithCommas(Math.round(tableData.total)), '100.0%'])
     .text(d => d);
 
   dependencyRatios
     .selectAll('p span:not(.help)')
     .data([tableData.bins[0].count, tableData.bins[2].count])
-    .text(d => Math.round((d/tableData.bins[1].count) * 100));
+    .text(d => round((d/tableData.bins[1].count) * 100, 1).toFixed(1));
 }
 
 
