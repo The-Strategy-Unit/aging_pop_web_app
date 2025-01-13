@@ -515,6 +515,10 @@ input[type="range"]::-webkit-slider-runnable-track {
     flex-direction: column;
   }
 
+  #pyramid .controls-container .dropdowns label > span {
+    margin-bottom: 4px;
+  }
+
   #pyramid :where(.controls-container, .data-container > *) {
     margin-bottom: 1em;
   }
