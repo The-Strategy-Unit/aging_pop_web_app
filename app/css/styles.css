@@ -119,9 +119,10 @@ a:hover {
 }
 
 #home-page {
-  color: #313738;
+  color: #3d4446;
   border: 0;
-  font-weight: 700;
+  font-weight: 600;
+  text-decoration: none;
 }
 
 .right-grp {
