@@ -28,11 +28,34 @@ function initHistograms(container) {
     linkContainer.select('.download-link')
       .attr('href', getDataFileUrl(getData('file')))
       .attr('download', `histograms-${area}-${name}${constants.dataFileSuffix}`);
+
+    /* populate histograms title and area name in sub-title */
+    const titleArea = getData('name'); // get area name
+    const titlesContainer = container.select('.histograms-titles-container');
+    let hText, sAreaText;
+    hText = `Explore the model results`;
+    sAreaText = `${titleArea}`;
+    /* select h3 in container */
+    titlesContainer.select('h3').text(hText);
+    /* use span tag to bold area name, select by id */
+    let span = document.getElementById('s-area');
+    span.textContent = sAreaText;
+
+  };
+
+  /* fn to track horizon (end_year) and apply to sub-title */
+  const horizonDataChange = function() {
+    const titleHorizon = getState('horizon'); // get horizon
+    let sHorizonText;
+    sHorizonText = `${titleHorizon}`;
+    let span = document.getElementById('s-horizon');
+    span.textContent = sHorizonText;
   };
 
   container
     .on('areadatachange', areaDataChange)
     .on('variantdatachange', updateGraphic)
+    .on('horizondatachange', horizonDataChange) // call horizonDataChange on change
     .on('noadjustchange', function() {
       container.classed('no-adjust', getState('noAdjust'));
     });
