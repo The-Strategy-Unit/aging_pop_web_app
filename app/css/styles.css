@@ -46,6 +46,25 @@ h3 {
   padding-right: 8%;
 }
 
+h3.viz-title {
+  font-family: 'Fira Sans';
+  font-size: 1.5rem;
+  font-weight: 400;
+  padding-left: 0;
+  padding-right: 8%;
+  padding-top: 0.75rem;
+}
+
+h4.viz-sub-title {
+  font-weight: 400;
+  font-size: 1.2rem;
+}
+
+h4.viz-sub-title span {
+  color: #636363;
+  font-weight: 600;
+}
+
 p {
   max-width: 80ch;
 }

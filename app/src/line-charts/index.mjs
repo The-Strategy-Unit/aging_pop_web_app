@@ -28,6 +28,15 @@ function initLineCharts(container) {
     linkContainer.select('.download-link')
       .attr('href', getDataFileUrl(getData('file')))
       .attr('download', `line-charts-${area}-${name}${constants.dataFileSuffix}`);
+
+    /* populate line-chart title and area name in sub-title */
+    const titleName = getData('name') // get area name
+    const titlesContainer = container.select('.line-chart-titles-container');
+    let hText, sText;
+    hText = `Use of most healthcare services increases with age`;
+    sText = `${titleName}`; // use span tag to bold area name
+    titlesContainer.select('h3').text(hText);
+    titlesContainer.select('span').text(sText);
   };
   
   container

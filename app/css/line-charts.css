@@ -110,3 +110,7 @@
     grid-template-columns: 1fr;
   }
 }
+
+#line-charts .line-chart-titles-container {
+  margin-bottom: 2em;
+}
