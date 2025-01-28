@@ -24,23 +24,24 @@ main {
 }
 
 h1 {
-  font-family: 'Open Sans';
+  font-family: 'Gelasio';
   font-weight: 800;
   font-size: 36px;
   color: #111314;
   padding-left: 8%;
   padding-right: 8%;
+  line-height: 1.6;
 }
 
 h2 {
-  font-family: 'Open Sans';
+  font-family: 'Gelasio';
   font-size: 26px;
   padding-left: 8%;
   padding-right: 8%;
 }
 
 h3 {
-  font-family: 'Open Sans';
+  font-family: 'Gelasio';
   font-size: 20px;
   padding-left: 8%;
   padding-right: 8%;
@@ -53,6 +54,7 @@ h3.viz-title {
   padding-left: 0;
   padding-right: 8%;
   padding-top: 0.75rem;
+  margin-top: 0;
 }
 
 h4.viz-sub-title {
@@ -70,8 +72,8 @@ p {
 }
 
 .narrative {
-  line-height: 1.35em;
-  font-size: 22px;
+  line-height: 1.5em;
+  font-size: 20px;
   font-family: Gelasio;
   color: #3d4446;
   padding-left: 8%;
