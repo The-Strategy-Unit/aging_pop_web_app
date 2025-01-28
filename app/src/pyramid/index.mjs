@@ -84,7 +84,7 @@ function yearDataChange(evt) {
     pText = `Variant ${variant.slice(1)}: ${vName}`;
   }
   titlesContainer.select('h3').text(hText);
-  titlesContainer.select('p').text(pText);
+  titlesContainer.select('h4').text(pText);
   
   const tableData = getTableData();
 
