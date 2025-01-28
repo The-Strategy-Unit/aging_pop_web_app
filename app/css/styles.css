@@ -80,12 +80,14 @@ p {
 
 a {
   border-top: none;
-  color: #2c74b5;
+  color: #0d7680;
+  text-decoration-thickness: 0.25ex;
+  text-decoration-line: underline;
 }
 
 a:hover {
   border-top: none;
-  color: #6b9dcb;
+  color: #063B40;
 }
 
 /* download button */
