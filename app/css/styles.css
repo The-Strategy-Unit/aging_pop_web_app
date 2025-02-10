@@ -122,7 +122,7 @@ a:hover {
   border-bottom: 1px solid #ccc;
   position: sticky;
   top: 0;
-  background: #fff;
+  background: #f5f6f8;
   z-index: 2001;
 }
 
@@ -132,7 +132,7 @@ a:hover {
 
 .navbar-content {
   display: flex;
-  width: 1000px;
+  width: 1200px;
   align-items: center;
   justify-content: space-between;
 }
@@ -150,6 +150,7 @@ a:hover {
 
 .right-grp {
   display: flex;
+  padding: 10px;
 }
 
 .right-grp a {
@@ -178,7 +179,7 @@ a:hover {
 
 .main-footer .inner {
   display: flex;
-  width: 100%;
+  width: 1200px;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
@@ -456,5 +457,11 @@ input[type="checkbox"]:checked::before {
 
   .dropdowns label select {
     width: 100%;
+  }
+}
+
+@media (max-width: 1200px) {
+  .navbar-content {
+    width: 95vw
   }
 }
