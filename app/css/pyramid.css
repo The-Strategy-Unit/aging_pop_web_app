@@ -71,7 +71,7 @@
   margin: 0;
 }
 
-#pyramid .titles-container p:empty::before {
+#pyramid .titles-container h4:empty::before {
   content:"";
   display: inline-block;
 }
