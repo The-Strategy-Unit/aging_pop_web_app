@@ -92,6 +92,11 @@ a:hover {
   color: #063B40;
 }
 
+.source-notes {
+  font-size: .8rem;
+  margin-top: 0;
+}
+
 /* download button */
 .download-btn { 
   align-items: center;
