@@ -125,7 +125,7 @@ function createGraphic(container) {
       .style('fill', d => colorScale(d.freq));
 
     gNoAdjust.append('circle')
-      .attr('cx', xScale(data.end_p_nohsa))
+      .attr('cx', xScale(data.demo_p))
       .attr('cy', yScale(0.5))
       .attr('r', 5)
       .attr('fill', 'red')
@@ -134,7 +134,7 @@ function createGraphic(container) {
 
     const toolWidth = 55;
     const toolHeight = toolWidth / 2;
-    const xTool = xScale(data.end_p_nohsa) - (toolWidth + 5);
+    const xTool = xScale(data.demo_p) - (toolWidth + 5);
     const yTool = yScale(0.5) + 5;
 
     const tooltip = gNoAdjust.append('g')
@@ -150,7 +150,7 @@ function createGraphic(container) {
       .attr('y', toolHeight / 2)
       .attr('text-anchor', 'middle')
       .attr('dominant-baseline', 'middle')
-      .text(`${data.end_p_nohsa.toFixed(2)}%`);
+      .text(`${data.demo_p.toFixed(2)}%`);
 
 
     const updateChart = function() {
@@ -215,9 +215,9 @@ function createGraphic(container) {
       gNoAdjust.select('circle')
         .transition()
         .duration(duration)
-        .attr('cx', xScale(data.end_p_nohsa));
+        .attr('cx', xScale(data.demo_p));
 
-      const xTool = xScale(data.end_p_nohsa) - (toolWidth + 5);
+      const xTool = xScale(data.demo_p) - (toolWidth + 5);
 
       gNoAdjust.select('g.tooltip')
         .transition()
@@ -225,7 +225,7 @@ function createGraphic(container) {
         .style('transform', `translateX(${xTool}px) translateY(${yTool}px)`);
 
       gNoAdjust.select('g.tooltip text') 
-        .text(`${data.end_p_nohsa.toFixed(2)}%`);
+        .text(`${data.demo_p.toFixed(2)}%`);
     };
 
     const removeChart = function() {
