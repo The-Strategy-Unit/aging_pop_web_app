@@ -7,3 +7,7 @@ node_modules/
 *.json
 *.json.gz
 issues_log.md
+!assumptions.json
+!codes.json
+!pods.json
+!variants.json
