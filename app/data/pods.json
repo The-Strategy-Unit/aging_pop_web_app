@@ -1,0 +1,5 @@
+{
+  "edc": { "name": "A&E" },
+  "apc": { "name": "Inpatients" },
+  "opc": { "name": "Outpatients" }
+}
