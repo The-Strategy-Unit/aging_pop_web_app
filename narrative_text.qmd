@@ -14,11 +14,11 @@ And yet, those planning publicly funded health services, whether in government d
 Successfully navigating this challenge requires high-quality modelling. And so the [Strategy Unit](https://www.strategyunitwm.nhs.uk/) has produced this interactive tool.
  
 ## Local population 'shape'
-The tool shows how aging and other demographic changes affect future need for different types of hospital services. Crucially, it is locally specific. The tool recognises the radically different demographic starting points of, for example, coastal towns and large cities.
+The tool shows how aging and other demographic changes affect future need for different types of hospital care. Crucially, it is locally specific. The tool recognises the radically different demographic starting points of, for example, coastal towns and large cities.
   
 By showing how populations are composed&mdash;and how they are expected to change&mdash;population pyramids bring local differences to life. Contrast the Christmas tree-shape of the Barking and Dagenham population with the rectangular-shape of Worcestershire.
    
-The shape of each population pyramid is determined by trends in births, deaths, and migration. To help with decision-making, the Office for National Statistics (ONS) publish [population projections](https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationprojections/bulletins/subnationalpopulationprojectionsforengland/2018based). Because the future is uncertain, the ONS also constructs alternative scenarios. For example, what if international migration declined? Or what if women had fewer children than in the past?
+The shape of each population pyramid is determined by trends in births, deaths, and migration. To help with decision-making, the Office for National Statistics (ONS) publish [population projections](https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationprojections/bulletins/subnationalpopulationprojectionsforengland/2018based). Because the future is uncertain, the ONS also construct alternative scenarios. For example, what if international migration declined? Or what if women had fewer children than in the past?
 
 You can explore this uncertainty by choosing one of the 10 variant projections and experiencing how your local population pyramid changes to 2043.
 
@@ -50,7 +50,7 @@ Adding this all together, the tool allows you to see estimates of future healthc
 
 The charts below make explicit the uncertainty as to how population health status might evolve. The progression from purple (more probable) to yellow (less probable) stripes portrays the frequency of outcomes from a [Monte Carlo](https://en.wikipedia.org/wiki/Monte_Carlo_methods) simulation.
 
-Uncertainty associated with future trends in fertility, mortality and migration can also be explored by selecting one of 10 variant population projections.
+Uncertainty associated with future trends in births, deaths and migration can also be explored by selecting one of 10 variant population projections.
 
 ## Other work in this area
 Other UK-based research teams are also working to understand what effect our aging population and changes in patterns of population ill health will have for future health care demand.
