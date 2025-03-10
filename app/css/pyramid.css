@@ -374,7 +374,11 @@ input[type="range"]::-webkit-slider-runnable-track {
 }
 
 #pyramid .data .chosen :is(.males, .females) rect:not(min) {
-  fill: black;
+  fill: #333333;
+}
+
+#pyramid .data .chosen :is(.males, .females) rect.min {
+  fill: #ffffff;
 }
 
 #pyramid .grid-line {
