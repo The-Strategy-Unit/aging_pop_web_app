@@ -374,7 +374,11 @@ input[type="range"]::-webkit-slider-runnable-track {
 }
 
 #pyramid .data .chosen :is(.males, .females) rect:not(min) {
-  fill: black;
+  fill: #333333;
+}
+
+#pyramid .data .chosen :is(.males, .females) rect.min {
+  fill: #ffffff;
 }
 
 #pyramid .grid-line {
@@ -388,16 +392,13 @@ input[type="range"]::-webkit-slider-runnable-track {
 }
 
 #pyramid .large-yob-label {
-  font-weight: bold;
+  font-size: 0.8em;
   fill: black;
-  stroke: white;
-  stroke-width: 0.25px;
   display: none;
 }
 
 #pyramid.v0 .large-yob-label {
-  fill: white;
-  stroke: black;
+  fill: black;
 }
 
 #pyramid .chosen .large-yob-label {
