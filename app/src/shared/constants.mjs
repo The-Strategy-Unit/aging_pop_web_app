@@ -10,7 +10,7 @@ const constants = {
   dataFileSuffix: `.json${isProd ? zipExtension : ''}`,
   minYear: 2000,
   maxYear: 2043,
-  initialYear: 2022,
+  initialYear: 2023,
   animationDuration: 1000,
 };
 
