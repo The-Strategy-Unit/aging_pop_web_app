@@ -480,7 +480,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 @media (min-width: 1000px) {
   #pyramid .pyramid-content {
     grid-template-columns: 4fr auto 3fr;
-    grid-template-rows: auto 100px auto;
+    grid-template-rows: auto 120px auto;
     column-gap: 1em;
     grid-template-areas: 
       "titles titles titles"
