@@ -286,6 +286,7 @@ section .level3 {
 select, .area-select input, .area-select ul {
   width: 175px;
   min-height: 25px;
+  align-self: flex-end;
 }
 
 .area-select {
