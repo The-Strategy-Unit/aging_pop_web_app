@@ -1,7 +1,7 @@
 {
-  "B1": "Average completed family size 1.61 children per woman",
-  "B2": "Average completed family size 1.81 children per woman",
-  "B3": "Average completed family size 1.91 children per woman",
+  "B1": "1.61 children per woman",
+  "B2": "1.81 children per woman",
+  "B3": "1.91 children per woman",
   "L1": ["81.2 for males", "84.3 for females"],
   "L2": ["82.9 for males", "85.8 for females"],
   "L3": ["84.0 for males", "86.8 for females"],
