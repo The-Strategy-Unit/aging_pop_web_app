@@ -469,6 +469,10 @@ input[type="checkbox"]:checked::before {
   .dropdowns label select {
     width: 100%;
   }
+/* overides align-self: flex-end; (line 286) otherwise area-select input will appear right-aligned */
+  select, .area-select input, .area-select ul {
+    align-self: unset;
+  }
 }
 
 @media (max-width: 1200px) {

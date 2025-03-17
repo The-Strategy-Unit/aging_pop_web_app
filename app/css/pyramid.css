@@ -514,6 +514,8 @@ input[type="range"]::-webkit-slider-runnable-track {
     all: unset;
     display: flex;
     flex-direction: column;
+    /* bottom-align dropdown label */
+    align-self: flex-end;
   }
 
   #pyramid .controls-container .dropdowns label > span {
