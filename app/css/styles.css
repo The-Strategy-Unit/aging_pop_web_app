@@ -286,6 +286,7 @@ section .level3 {
 select, .area-select input, .area-select ul {
   width: 175px;
   min-height: 25px;
+  /* bottom align area-select input box */
   align-self: flex-end;
 }
 
@@ -434,6 +435,7 @@ input[type="checkbox"]:checked::before {
   flex: 1 1 0;
   overflow: hidden;
   white-space: nowrap;
+  /* bottom align dropdown labels */
   align-self: flex-end;
 }
 
@@ -450,10 +452,11 @@ input[type="checkbox"]:checked::before {
   .dropdowns {
     grid-template-columns: min(370px, 100%);
   }
-
+/* switched to keep leader until 400px
   .dropdowns label span::after {
     content: none;
   }
+*/
 }
 
 @media (max-width: 400px) {
@@ -464,6 +467,10 @@ input[type="checkbox"]:checked::before {
 
   .dropdowns label span {
     all: unset;
+  }
+
+  .dropdowns label span::after {
+    content: none;
   }
 
   .dropdowns label select {
